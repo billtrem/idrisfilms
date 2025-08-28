@@ -26,8 +26,7 @@ ALLOWED_HOSTS = os.environ.get(
 CSRF_TRUSTED_ORIGINS = [
     "https://idrisfilms.com",
     "https://www.idrisfilms.com",
-    # Add your Railway domain below after generating it
-    # "https://alert-laughter.up.railway.app",
+    "https://idrisfilms-production.up.railway.app",
 ]
 
 # Application definition
