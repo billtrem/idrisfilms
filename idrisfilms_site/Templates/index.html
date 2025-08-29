@@ -1,29 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Idris Films</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             text-align: center;
             background-color: #f7f7f7;
             margin: 0;
             padding: 0;
+            color: #333;
         }
-        img {
+        header {
+            background-color: #111;
+            padding: 20px 0;
+        }
+        header h1 {
+            font-size: 48px;
+            letter-spacing: 4px;
+            color: #fff;
+            margin: 0;
+        }
+        img.hero {
             max-width: 100%;
             height: auto;
-            margin-top: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        h1 {
-            color: #333;
+        p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        footer {
+            background: #fff;
+            padding: 40px 0;
+            border-top: 1px solid #ddd;
+        }
+        #mc_embed_signup {
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        #mc_embed_signup h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <img src="https://res.cloudinary.com/dqmh99cik/image/upload/v1699999999/sample.jpg" alt="Idris Films">
-    <h1>Welcome to Idris Films</h1>
+    <header>
+        <h1>IDRIS FILMS</h1>
+    </header>
+
+    <img src="https://res.cloudinary.com/dqmh99cik/image/upload/v1699999999/sample.jpg" alt="Idris Films" class="hero">
+    <h2>Welcome to Idris Films</h2>
     <p>Your gateway to amazing cinema.</p>
+
+    <footer>
+        <!-- Mailchimp Embed -->
+        <div id="mc_embed_shell">
+            <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+            <div id="mc_embed_signup">
+                <form action="https://idrisfilms.us2.list-manage.com/subscribe/post?u=0c396aa2088262c512e7b0eca&amp;id=f5ea51f4a7&amp;f_id=006502e1f0" 
+                      method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" 
+                      class="validate" target="_blank">
+                    
+                    <div id="mc_embed_signup_scroll">
+                        <h2>Subscribe</h2>
+                        <div class="indicates-required">
+                            <span class="asterisk">*</span> indicates required
+                        </div>
+                        <div class="mc-field-group">
+                            <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        </div>
+                        <div id="mce-responses" class="clear foot">
+                            <div class="response" id="mce-error-response" style="display:none"></div>
+                            <div class="response" id="mce-success-response" style="display:none"></div>
+                        </div>
+                        <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                            <input type="text" name="b_0c396aa2088262c512e7b0eca_f5ea51f4a7" tabindex="-1" value="">
+                        </div>
+                        <div class="optionalParent">
+                            <div class="clear foot">
+                                <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+            <script type="text/javascript">
+                (function($) {
+                    window.fnames = new Array(); 
+                    window.ftypes = new Array();
+                    fnames[0]='EMAIL';ftypes[0]='email';
+                }(jQuery));
+                var $mcj = jQuery.noConflict(true);
+            </script>
+        </div>
+    </footer>
 </body>
 </html>
