@@ -4,6 +4,7 @@ Django settings for idrisfilms project.
 
 import os
 from pathlib import Path
+import dj_database_url  # ✅ for Railway Postgres
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,12 +77,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'idrisfilms.wsgi.application'
 
-# Database (SQLite for dev — Railway can override with DATABASE_URL)
+# Database
+# Default to SQLite (local dev), but use Railway DATABASE_URL if available
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,  # keep connections open
+        ssl_require=False  # Railway Postgres usually enforces SSL
+    )
 }
 
 # Password validation
