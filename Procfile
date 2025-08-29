@@ -1,1 +1,1 @@
-web: gunicorn idrisfilms.wsgi --log-file -
+web: bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn idrisfilms.wsgi:application --bind 0.0.0.0:$PORT --log-file -"
