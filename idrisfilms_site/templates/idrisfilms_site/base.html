@@ -10,13 +10,8 @@
   <title>{% block title %}Idris Films{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}Idris Films — films, commissions, and indie distribution.{% endblock %}" />
 
-  {# Global base styles (shared across all pages) #}
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/base.css" />
-
-  {# Your existing main stylesheet (DO NOT REMOVE — this is where most styling still lives) #}
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/styles.css" />
-
-  {# One CSS file per template (optional per page) #}
   {% block page_css %}{% endblock %}
 
   <link rel="icon" href="{{ STATIC_PREFIX }}idrisfilms_site/img/favicon.ico" />
@@ -54,7 +49,7 @@
       </nav>
 
       <div id="nav-panel" class="nav-panel" hidden data-nav-panel>
-        <ul class="nav nav--mobile" aria-label="Mobile" data-close-on-click>
+        <ul class="mobile-nav" aria-label="Mobile" data-close-on-click>
           <li><a href="{% url 'idrisfilms_site:films' %}" class="{% if current == 'films' %}active{% endif %}">Films</a></li>
           <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' %}active{% endif %}">Commissions</a></li>
           <li><a href="{% url 'idrisfilms_site:distribution' %}" class="{% if current == 'distribution' %}active{% endif %}">Distribution</a></li>
@@ -81,6 +76,6 @@
     </div>
   </footer>
 
-  <script src="{{ STATIC_PREFIX }}idrisfilms_site/js/main.js"></script>
+  <script src="{{ STATIC_PREFIX }}idrisfilms_site/js/main.js" defer></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* =========
    Idris Films — Base (global) — House style (refined)
-   Lighter borders, softer panels, working mobile dropdown
+   Fixes mobile dropdown not showing
    Save as:
    idrisfilms_site/static/idrisfilms_site/css/base.css
    ========= */
@@ -10,11 +10,9 @@
   --ink: #111;
   --muted: #4a4a4a;
 
-  /* Refined lines */
   --line: rgba(17,17,17,.28);
   --line-strong: rgba(17,17,17,.58);
 
-  /* Soft panels */
   --panel: rgba(255,255,255,.55);
   --shadow: 0 10px 26px rgba(0,0,0,.08);
 
@@ -26,7 +24,6 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-/* Reset-ish */
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
 body{
@@ -61,10 +58,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .skip-link:focus{ left: 14px; z-index: 9999; }
 
-/* -----------------------------
-   Header / Nav
------------------------------- */
-
+/* Header / Nav */
 .site-header{
   position: sticky;
   top: 0;
@@ -83,7 +77,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 14px 0;
 }
 
-/* Brand */
 .brand{
   display: block;
   text-decoration: none;
@@ -106,7 +99,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-overflow: ellipsis;
 }
 
-/* Desktop nav: minimal text */
+/* Desktop nav */
 .nav{
   list-style: none;
   padding: 0;
@@ -130,10 +123,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition: opacity 160ms ease, transform 160ms ease;
 }
 
-.nav a:hover{
-  opacity: 1;
-  transform: translateY(-1px);
-}
+.nav a:hover{ opacity: 1; transform: translateY(-1px); }
 
 .nav a.active{
   opacity: 1;
@@ -141,7 +131,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding-bottom: 4px;
 }
 
-/* Mobile menu button */
+/* Mobile toggle button */
 .nav-toggle{
   display: none;
   border: 1px solid var(--line-strong);
@@ -153,62 +143,72 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   cursor: pointer;
 }
 
-/* Mobile dropdown */
+/* Dropdown panel */
 .nav-panel{
   position: absolute;
   right: 0;
   top: calc(100% + 10px);
 
-  width: max-content;
+  width: 220px;
   max-width: calc(100vw - 28px);
-  padding: 10px 12px;
+  padding: 12px;
 
   border: 1px solid var(--line-strong);
   background: rgba(244,242,237,.98);
   box-shadow: var(--shadow);
   z-index: 999;
+
+  transform-origin: top right;
+  transform: translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 
+/* When open */
+.nav-panel[data-open="true"]{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* IMPORTANT: hidden attribute must actually hide */
 .nav-panel[hidden]{ display: none !important; }
 
-.nav--mobile{
-  display: grid;
-  gap: 10px;
-  border: none;
+/* Mobile list (independent of .nav) */
+.mobile-nav{
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
+  display: grid;
+  gap: 10px;
 }
 
-.nav--mobile a{
-  border: none;
-  padding: 6px 0;
-  opacity: 0.8;
+.mobile-nav a{
+  display: block;
   text-decoration: none;
   font-weight: 850;
   letter-spacing: 1px;
   text-transform: uppercase;
+  opacity: 0.85;
+  padding: 6px 0;
 }
 
-.nav--mobile a:hover{ opacity: 1; }
+.mobile-nav a:hover{ opacity: 1; }
 
-.nav--mobile a.active{
+.mobile-nav a.active{
   opacity: 1;
   border-bottom: 1px solid var(--ink);
   padding-bottom: 4px;
 }
 
-/* -----------------------------
-   Layout primitives
------------------------------- */
-
+/* Layout */
 .grid{
   display: grid;
   gap: var(--gap);
   margin: 18px 0;
 }
 
-/* Panels */
 .panel{
   background: var(--panel);
   border-radius: var(--radius);
@@ -219,10 +219,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   backdrop-filter: blur(6px);
 }
 
-/* -----------------------------
-   Type
------------------------------- */
-
+/* Type */
 .h1{
   margin: 8px 0 10px;
   font-size: clamp(34px, 4vw, 58px);
@@ -257,74 +254,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .muted{ color: var(--muted); }
 .tiny{ font-size: 12px; line-height: 1.35; }
-code{ font-family: var(--mono); font-size: 0.95em; }
 
-/* -----------------------------
-   Buttons (global)
------------------------------- */
-
-.btn{
-  display: inline-block;
-  border: 1px solid var(--line-strong);
-  background: #111;
-  color: var(--bg);
-  text-decoration: none;
-  padding: 12px 14px;
-  font-weight: 950;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.btn:hover{ filter: invert(100%); }
-.btn:active{ transform: translateY(1px); }
-
-.btn--ghost{
-  background: transparent;
-  color: var(--ink);
-}
-
-.btn--small{
-  padding: 9px 10px;
-  font-size: 12px;
-}
-
-.cta-row{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-
-/* -----------------------------
-   Forms
------------------------------- */
-
-.form{ display: grid; gap: 12px; }
-
-label span{
-  display: block;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-input, textarea, select{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--line-strong);
-  background: #fff;
-  font-family: var(--font);
-  font-size: 15px;
-}
-
-textarea{ resize: vertical; }
-
-/* -----------------------------
-   Footer
------------------------------- */
-
+/* Footer */
 .site-footer{
   border-top: 1px solid var(--line-strong);
   padding: 14px 0 18px;
@@ -349,12 +280,8 @@ textarea{ resize: vertical; }
   gap: 6px;
 }
 
-/* -----------------------------
-   Responsive
------------------------------- */
-
+/* Responsive */
 @media (max-width: 980px){
-  .topnav{ grid-template-columns: 1fr auto; }
   .nav{ display: none; }
   .nav-toggle{ display: inline-block; }
 
