@@ -1,0 +1,108 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}{{ page.title }} | Idris Films{% endblock %}
+{% block body_class %}page-commission-detail{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{% static 'idrisfilms_site/css/commissions.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="commission-detail">
+
+    <div class="commission-detail__panel">
+
+      <header class="commission-detail__head">
+        <h1 class="h1">{{ page.title }}</h1>
+
+        {% if page.summary %}
+          <p class="lead">{{ page.summary }}</p>
+        {% endif %}
+
+        <p class="commission-detail__back">
+          <a href="{% url 'idrisfilms_site:commissions' %}">← Back to Commissions</a>
+        </p>
+
+        <div class="rule"></div>
+      </header>
+
+      {% if slides %}
+        <div class="carousel" data-carousel>
+          <button class="carousel__btn" type="button" aria-label="Previous" data-carousel-prev>←</button>
+
+          <div class="carousel__viewport" role="region" aria-label="Selected work carousel">
+            <ul class="carousel__track" data-carousel-track>
+              {% for s in slides %}
+                <li class="carousel__item" data-carousel-slide>
+                  <div class="carousel__media">
+                    {% if s.embed_html %}
+                      {{ s.embed_html|safe }}
+                    {% elif s.embed_url %}
+                      <iframe
+                        src="{{ s.embed_url }}"
+                        title="{{ s.title }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                  <div class="carousel__text">
+                    <h3 class="h2">{{ s.title }}</h3>
+                    {% if s.caption %}
+                      <p class="muted">{{ s.caption }}</p>
+                    {% endif %}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <button class="carousel__btn" type="button" aria-label="Next" data-carousel-next>→</button>
+        </div>
+      {% endif %}
+
+      {% if blocks %}
+        <div class="commission-detail__blocks">
+          {% for block in blocks %}
+            <section class="content-block content-block--{{ block.block_type }}">
+              {% if block.heading %}
+                <h2 class="h2">{{ block.heading }}</h2>
+              {% endif %}
+
+              {% if block.block_type == "rich_text" %}
+                {{ block.body|safe }}
+
+              {% elif block.block_type == "image" %}
+                {% if block.image %}
+                  <img src="{{ block.image.url }}" alt="{{ block.heading|default:'Image' }}">
+                {% elif block.image_url %}
+                  <img src="{{ block.image_url }}" alt="{{ block.heading|default:'Image' }}">
+                {% endif %}
+                {% if block.body %}
+                  <div class="block-caption">{{ block.body|safe }}</div>
+                {% endif %}
+
+              {% elif block.block_type == "embed" %}
+                {{ block.body|safe }}
+
+              {% elif block.block_type == "cta" %}
+                {% if block.body %}
+                  <div class="cta-text">{{ block.body|safe }}</div>
+                {% endif %}
+                {% if block.button_url and block.button_text %}
+                  <p><a class="btn" href="{{ block.button_url }}">{{ block.button_text }}</a></p>
+                {% endif %}
+
+              {% else %}
+                {{ block.body|safe }}
+              {% endif %}
+            </section>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  </section>
+{% endblock %}

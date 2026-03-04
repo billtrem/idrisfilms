@@ -1,0 +1,87 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}Idris Films — Films{% endblock %}
+{% block meta_description %}Idris Films productions and co-productions — finished film projects and trailers.{% endblock %}
+
+{% block body_class %}page-films{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'idrisfilms_site/css/films.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="grid page-hero" aria-label="Films">
+
+  <div class="panel">
+
+    <header class="films-head">
+      <h1 class="h1">Films</h1>
+      <p class="lead">
+        Finished film projects — productions and co-productions with other creatives.
+      </p>
+    </header>
+
+    {% if slides %}
+      <div class="carousel" data-carousel>
+        <button class="carousel__btn" type="button" aria-label="Previous" data-carousel-prev>←</button>
+
+        <div class="carousel__viewport" role="region" aria-label="Films carousel">
+          <ul class="carousel__track" data-carousel-track>
+            {% for s in slides %}
+              <li class="carousel__item" data-carousel-slide>
+
+                <div class="carousel__media">
+                  {% if s.embed_html %}
+                    {{ s.embed_html|safe }}
+                  {% elif s.embed_url %}
+                    <iframe
+                      src="{{ s.embed_url }}"
+                      title="{{ s.title|default:'Film trailer' }}"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen></iframe>
+                  {% endif %}
+                </div>
+
+                <div class="carousel__text">
+                  {% if s.title %}
+                    <h2 class="h2">{{ s.title }}</h2>
+                  {% endif %}
+
+                  {% if s.caption %}
+                    <p class="muted" style="margin:0;">{{ s.caption }}</p>
+                  {% endif %}
+
+                  {# Optional: if you later add fields like year/type/link, you can show them here #}
+                  {# Example meta block kept but safe to omit entirely #}
+                  {# <div class="film-meta"> ... </div> #}
+                </div>
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <button class="carousel__btn" type="button" aria-label="Next" data-carousel-next>→</button>
+      </div>
+    {% else %}
+      <p class="muted" style="margin:0;">
+        Add film trailers in admin: Pages → Films → Carousel slides.
+      </p>
+    {% endif %}
+
+    <div class="ethos">
+      <h2 class="h2">How we work</h2>
+      <p class="muted">
+        Low-budget, independent filmmaking — practical production, small crews, and real places.
+        We work collaboratively with other creatives, and we’re also developing a slate of projects we lead on.
+        We’ve worked with Idioma Pictures (Lisbon) and Stiwdio Dyfi (Machynlleth).
+      </p>
+    </div>
+
+  </div>
+
+</section>
+{% endblock %}

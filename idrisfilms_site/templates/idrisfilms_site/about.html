@@ -1,0 +1,26 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}Idris Films — About{% endblock %}
+{% block meta_description %}Idris Films — a small film and video outfit based in Machynlleth, Mid Wales.{% endblock %}
+
+{% block body_class %}page-about{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/about.css" />
+{% endblock %}
+
+{% block content %}
+<section class="grid page-hero" aria-label="About">
+  <div class="panel">
+    <h1 class="h1">About</h1>
+
+    <p class="lead">
+      Idris Films is a small film and video outfit based in Machynlleth, Mid Wales.
+    </p>
+
+    <p class="muted" style="margin:0;">
+      Started by Will Tremlett. We work across films and commissioned projects, often in collaboration with others.
+    </p>
+  </div>
+</section>
+{% endblock %}

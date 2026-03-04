@@ -1,0 +1,336 @@
+/* =========
+   Idris Films — Commissions + Commission Detail
+   Match Home style: minimal, spacious, no indent, lighter lines
+   Save as:
+   idrisfilms_site/static/idrisfilms_site/css/commissions.css
+   ========= */
+
+body.page-commissions,
+body.page-commission-detail{
+  --gap: 16px;
+
+  /* Carousel controls */
+  --arrow: 44px;
+  --arrow-gap: 10px;
+
+  /* Padding for text under video */
+  --carousel-pad: 14px;
+
+  /* Use base house line tone */
+  --soft-line: rgba(17,17,17,.28);
+  --soft-line-strong: rgba(17,17,17,.58);
+}
+
+/* One clean column */
+.page-commissions .page-hero,
+.page-commission-detail .page-hero{
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: var(--gap);
+}
+
+.page-commissions .panel,
+.page-commission-detail .panel{
+  padding: 18px;
+}
+
+/* REMOVE the old carousel edge indent completely */
+.page-commissions .video-edge-align{
+  margin-left: 0;
+  margin-top: 0;
+}
+
+/* Keep kickers plain if they appear */
+.page-commissions .kicker,
+.page-commission-detail .kicker{
+  border: 0;
+  padding: 0;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+/* Softer rule */
+.page-commissions .rule,
+.page-commission-detail .rule{
+  border-top: 1px solid var(--soft-line-strong);
+  margin: 14px 0;
+}
+
+/* =========================
+   Showreel (commissions landing)
+   ========================= */
+
+.page-commissions .showreel{
+  margin-top: 10px;
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+}
+
+.page-commissions .showreel--empty{
+  padding: 14px;
+}
+
+.page-commissions .showreel__media{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--soft-line-strong);
+}
+
+.page-commissions .showreel__media iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.page-commissions .showreel__text{
+  padding: var(--carousel-pad);
+}
+
+/* =========================
+   Carousel (detail pages)
+   ========================= */
+
+.page-commission-detail .carousel{
+  display: grid;
+  grid-template-columns: var(--arrow) 1fr var(--arrow);
+  gap: var(--arrow-gap);
+  align-items: center;
+  margin-top: 10px;
+}
+
+.page-commission-detail .carousel__btn{
+  width: var(--arrow);
+  height: var(--arrow);
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 950;
+  cursor: pointer;
+  border-radius: 0;
+  opacity: 0.7;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.page-commission-detail .carousel__btn:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.page-commission-detail .carousel__viewport{
+  overflow: hidden;
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+}
+
+.page-commission-detail .carousel__track{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  will-change: transform;
+}
+
+.page-commission-detail .carousel__item{
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+.page-commission-detail .carousel__media{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--soft-line-strong);
+}
+
+.page-commission-detail .carousel__media iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.page-commission-detail .carousel__text{
+  padding: var(--carousel-pad);
+}
+
+.page-commission-detail .carousel__text .h2{
+  margin: 0 0 6px 0;
+}
+
+/* =========================
+   Categories (simple, no extra subheading styling)
+   ========================= */
+
+.page-commissions .services-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* Card: image + title + optional summary */
+.page-commissions .service-card{
+  display:grid;
+  grid-template-rows: 220px 1fr;
+  text-decoration:none;
+  color: inherit;
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+}
+
+.page-commissions .service-card__media{
+  background:#000;
+  overflow:hidden;
+  border-bottom: 1px solid var(--soft-line-strong);
+  position: relative;
+}
+
+.page-commissions .service-card__media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform: scale(1.001);
+  transition: transform 180ms ease;
+}
+
+.page-commissions .service-card__placeholder{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.10);
+}
+
+.page-commissions .service-card__label{
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.page-commissions .service-card__title{
+  margin: 0;
+  font-size: clamp(20px, 2vw, 28px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Summary stays subtle */
+.page-commissions .service-card__summary{
+  margin: 0;
+  opacity: 0.78;
+  max-width: 60ch;
+}
+
+/* Underline CTA */
+.page-commissions .service-card__btn{
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 0;
+  padding: 0;
+
+  border-bottom: 1px solid var(--soft-line-strong);
+  padding-bottom: 6px;
+
+  width: fit-content;
+  transition: transform 160ms ease, border-color 160ms ease, opacity 160ms ease;
+  opacity: 0.9;
+}
+
+.page-commissions .service-card:hover{
+  background: rgba(255,255,255,0.02);
+}
+
+.page-commissions .service-card:hover .service-card__media img{
+  transform: scale(1.03);
+}
+
+.page-commissions .service-card:hover .service-card__btn{
+  transform: translateX(2px);
+  border-color: rgba(17,17,17,.70);
+  opacity: 1;
+}
+
+/* =========================
+   Detail page wrapper box
+   ========================= */
+
+.page-commission-detail .commission-detail{
+  margin-top: 10px;
+}
+
+.page-commission-detail .commission-detail__panel{
+  border: 1px solid var(--soft-line-strong);
+  padding: 18px;
+}
+
+.page-commission-detail .commission-detail__head .h1{
+  margin: 0 0 8px 0;
+}
+
+/* Back link */
+.page-commission-detail .commission-detail__back{
+  margin: 10px 0 0 0;
+}
+
+.page-commission-detail .commission-detail__back a{
+  text-decoration: none;
+  border-bottom: 1px solid var(--soft-line-strong);
+  padding-bottom: 4px;
+  opacity: 0.85;
+  transition: transform 160ms ease, opacity 160ms ease;
+  display: inline-block;
+}
+
+.page-commission-detail .commission-detail__back a:hover{
+  opacity: 1;
+  transform: translateX(-2px);
+}
+
+.page-commission-detail .commission-detail__blocks{
+  margin-top: 18px;
+}
+
+/* Mobile */
+@media (max-width: 980px){
+  .page-commission-detail .carousel{
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .page-commission-detail .carousel__btn{
+    display: none;
+  }
+
+  .page-commission-detail .carousel__viewport{
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .page-commission-detail .carousel__track{
+    width: max-content;
+  }
+
+  .page-commission-detail .carousel__item{
+    scroll-snap-align: start;
+    min-width: 92vw;
+  }
+
+  .page-commissions .services-grid{
+    grid-template-columns: 1fr;
+  }
+}

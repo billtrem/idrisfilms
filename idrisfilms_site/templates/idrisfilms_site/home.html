@@ -1,0 +1,142 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}Idris Films{% endblock %}
+{% block meta_description %}Idris Films — films, commissions, distribution, and updates.{% endblock %}
+
+{% block body_class %}page-home{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/home.css" />
+{% endblock %}
+
+{% block content %}
+<section class="grid home-stack" aria-label="Homepage">
+
+  {# FILMS (single hero) #}
+  <section class="panel home-hero" aria-label="Films">
+    <div class="home-hero__media" aria-label="Featured film image placeholder">
+      <div class="home-media">
+        <div class="home-media__placeholder">
+          <div class="tiny muted">Featured film image</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-hero__text">
+      <h1 class="h1">Idris Films</h1>
+      <p class="lead">
+        Film projects with clear stories and strong performances.
+      </p>
+
+      <a class="home-link" href="{% url 'idrisfilms_site:films' %}">
+        View films →
+      </a>
+    </div>
+  </section>
+
+  {# COMMISSIONS #}
+  <section class="panel" aria-label="Commissions">
+    <h2 class="h2">Commissions</h2>
+    <p class="muted">Short films and videos for organisations, artists, and events.</p>
+
+    <div class="home-tiles" aria-label="Commission categories">
+      {% for p in commission_tiles %}
+        <a class="tile" href="{% url 'idrisfilms_site:commission_detail' p.slug %}">
+          <div class="tile__media">
+            {% if p.card_image %}
+              <img class="tile__img" src="{{ p.card_image.url }}" alt="{{ p.title }}">
+            {% elif p.card_image_url %}
+              <img class="tile__img" src="{{ p.card_image_url }}" alt="{{ p.title }}">
+            {% else %}
+              <div class="tile__placeholder"></div>
+            {% endif %}
+          </div>
+          <div class="tile__label">
+            <div class="tile__title">{{ p.title }}</div>
+          </div>
+        </a>
+      {% empty %}
+        <div class="muted tiny">Add commission category pages under “Commissions” in admin.</div>
+      {% endfor %}
+    </div>
+
+    <a class="home-link" href="{% url 'idrisfilms_site:commissions' %}">
+      View all commissions →
+    </a>
+  </section>
+
+  {# DISTRIBUTION #}
+  <section class="panel home-split" aria-label="Distribution">
+    <div class="home-split__left">
+      <h2 class="h2">Distribution</h2>
+      <p class="muted">Support for independent films and community screenings.</p>
+
+      <a class="home-link" href="{% url 'idrisfilms_site:distribution' %}">
+        Learn more →
+      </a>
+    </div>
+
+    <div class="home-split__right" aria-label="Distribution image placeholder">
+      <div class="home-media">
+        <div class="home-media__placeholder">
+          <div class="tiny muted">Poster or still</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# UPDATES (News) #}
+  <section class="panel" aria-label="Updates">
+    <h2 class="h2">Updates</h2>
+    <p class="muted">News from films, commissions, and distribution.</p>
+
+    <div class="home-news__grid">
+      <a class="news-card" href="{% url 'idrisfilms_site:news' %}">
+        <div class="news-card__title">Behind the scenes</div>
+        <div class="news-card__cta">Read →</div>
+      </a>
+
+      <a class="news-card" href="{% url 'idrisfilms_site:news' %}">
+        <div class="news-card__title">New commission</div>
+        <div class="news-card__cta">Read →</div>
+      </a>
+
+      <a class="news-card" href="{% url 'idrisfilms_site:news' %}">
+        <div class="news-card__title">Screening update</div>
+        <div class="news-card__cta">Read →</div>
+      </a>
+    </div>
+
+    <a class="home-link" href="{% url 'idrisfilms_site:news' %}">
+      All updates →
+    </a>
+  </section>
+
+  {# ABOUT #}
+  <section class="panel" aria-label="About">
+    <h2 class="h2">About</h2>
+    <p class="muted">A simple approach that keeps things practical and focused.</p>
+
+    <a class="home-link" href="{% url 'idrisfilms_site:about' %}">
+      Read more →
+    </a>
+  </section>
+
+  {# CONTACT #}
+  <section class="panel home-contact" aria-label="Contact">
+    <div class="home-contact__text">
+      <h2 class="h2">Get in touch</h2>
+      <p class="muted">Questions, commissions, or distribution. Send a message.</p>
+    </div>
+
+    <a class="home-link" href="{% url 'idrisfilms_site:contact' %}">
+      Contact →
+    </a>
+  </section>
+
+</section>
+{% endblock %}
+
+{% block footer_note %}
+<div class="muted tiny">Built for clarity.</div>
+{% endblock %}

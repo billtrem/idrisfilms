@@ -1,0 +1,26 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}Idris Films — Contact{% endblock %}
+{% block meta_description %}Contact Idris Films.{% endblock %}
+
+{% block body_class %}page-contact{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/contact.css" />
+{% endblock %}
+
+{% block content %}
+<section class="grid page-hero" aria-label="Contact">
+  <div class="panel">
+    <h1 class="h1">Contact</h1>
+
+    <p class="lead" style="margin-bottom:10px;">
+      Email us.
+    </p>
+
+    <p class="muted" style="margin:0;">
+      <a class="contact-link" href="mailto:idrisfilms.studio@gmail.com">idrisfilms.studio@gmail.com</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

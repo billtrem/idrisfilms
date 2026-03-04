@@ -1,0 +1,43 @@
+/* =========
+   Page: News (house style)
+   Save as:
+   idrisfilms_site/static/idrisfilms_site/css/news.css
+   ========= */
+
+body.page-news{
+  --gap: 16px;
+}
+
+/* Keep it simple and consistent */
+.page-news .page-hero{
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.page-news .panel{
+  padding: 18px;
+}
+
+/* If you have a grid of posts, keep it calm */
+.page-news .news-grid{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.page-news .post{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page-news .post-meta{
+  font-weight: 850;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: .75;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 980px){
+  .page-news .news-grid{ grid-template-columns: 1fr; }
+}

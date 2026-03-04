@@ -1,0 +1,47 @@
+{% extends "idrisfilms_site/base.html" %}
+
+{% block title %}Idris Films — Updates{% endblock %}
+{% block meta_description %}Updates from Idris Films.{% endblock %}
+
+{% block body_class %}page-news{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/news.css" />
+{% endblock %}
+
+{% block content %}
+<section class="grid page-hero" aria-label="Updates">
+  <div class="panel">
+    <h1 class="h1">Updates</h1>
+    <p class="lead">News from films, commissions, and distribution.</p>
+  </div>
+</section>
+
+<section class="grid news-grid" aria-label="Posts">
+  {% if posts %}
+    {% for p in posts %}
+      <article class="panel post">
+        <div class="post-meta">
+          {{ p.category|default:"Update" }}
+          {% if p.date %} • {{ p.date|date:"j M Y" }}{% endif %}
+        </div>
+
+        <h2 class="h2">{{ p.title }}</h2>
+
+        {% if p.summary %}
+          <p class="muted">{{ p.summary }}</p>
+        {% endif %}
+
+        {% if p.url %}
+          <a class="home-link" href="{{ p.url }}">Read →</a>
+        {% endif %}
+      </article>
+    {% endfor %}
+  {% else %}
+    <article class="panel post">
+      <div class="post-meta">Update</div>
+      <h2 class="h2">Posts coming soon</h2>
+      <p class="muted">Short updates will live here.</p>
+    </article>
+  {% endif %}
+</section>
+{% endblock %}

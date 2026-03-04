@@ -1,0 +1,36 @@
+/* =========
+   Idris Films — Contact page (minimal)
+   Save as:
+   idrisfilms_site/static/idrisfilms_site/css/contact.css
+   ========= */
+
+body.page-contact{
+  --gap: 16px;
+  --soft-line-strong: rgba(17,17,17,.58);
+}
+
+.page-contact .page-hero{
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+.page-contact .panel{
+  padding: 18px;
+}
+
+/* Underline link like home */
+.page-contact .contact-link{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-bottom: 1px solid var(--soft-line-strong);
+  padding-bottom: 6px;
+  width: fit-content;
+  opacity: 0.9;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.page-contact .contact-link:hover{
+  transform: translateX(2px);
+  opacity: 1;
+}

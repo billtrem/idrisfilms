@@ -1,0 +1,89 @@
+{% extends "idrisfilms_site/base.html" %}
+{% load static %}
+
+{% block title %}Idris Films — Commissions{% endblock %}
+{% block body_class %}page-commissions{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'idrisfilms_site/css/commissions.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="grid page-hero" aria-label="Commissions">
+
+  <div class="panel commissions-top">
+
+    <div class="video-edge-align">
+      <h1 class="h1">Commissions</h1>
+
+      <p class="lead">
+        Commissioned videos for organisations, artists, and events.
+      </p>
+
+      <div class="rule"></div>
+      <h2 class="h2">Showreel</h2>
+    </div>
+
+    {% if showreel_url %}
+      <div class="showreel" aria-label="Commission showreel">
+        <div class="showreel__media">
+          <iframe
+            src="{{ showreel_url }}"
+            title="Idris Films – Commission showreel"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        <div class="showreel__text">
+          {% if showreel_caption %}
+            <p class="muted">{{ showreel_caption }}</p>
+          {% else %}
+            <p class="muted">A short selection of work.</p>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="showreel showreel--empty">
+        <p class="muted">Add a showreel URL in admin: Pages → Commissions.</p>
+      </div>
+    {% endif %}
+
+    {% if service_pages %}
+      <div class="video-edge-align">
+        <div class="rule"></div>
+        <h2 class="h2">Categories</h2>
+        <p class="lead">Choose a category to see examples.</p>
+      </div>
+
+      <div class="services-grid" aria-label="Commission categories">
+        {% for p in service_pages %}
+          <a class="service-card" href="{% url 'idrisfilms_site:commission_detail' p.slug %}">
+            <div class="service-card__media">
+              {% if p.card_image %}
+                <img src="{{ p.card_image.url }}" alt="{{ p.title }}">
+              {% elif p.card_image_url %}
+                <img src="{{ p.card_image_url }}" alt="{{ p.title }}">
+              {% else %}
+                <div class="service-card__placeholder"></div>
+              {% endif %}
+            </div>
+
+            <div class="service-card__label">
+              <h3 class="service-card__title">{{ p.title }}</h3>
+
+              {% if p.summary %}
+                <p class="service-card__summary">{{ p.summary }}</p>
+              {% endif %}
+
+              <span class="service-card__btn">See examples →</span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>
+{% endblock %}

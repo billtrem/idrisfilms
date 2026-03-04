@@ -1,0 +1,17 @@
+/* =========
+   Idris Films — About page (minimal)
+   Save as:
+   idrisfilms_site/static/idrisfilms_site/css/about.css
+   ========= */
+
+body.page-about{
+  --gap: 16px;
+}
+
+.page-about .page-hero{
+  grid-template-columns: 1fr;
+}
+
+.page-about .panel{
+  padding: 18px;
+}

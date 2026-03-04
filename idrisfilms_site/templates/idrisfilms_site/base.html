@@ -1,0 +1,86 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>{% block title %}Idris Films{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Idris Films — films, commissions, and indie distribution.{% endblock %}" />
+
+  {# Global base styles (shared across all pages) #}
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/base.css" />
+
+  {# Your existing main stylesheet (DO NOT REMOVE — this is where most styling still lives) #}
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/styles.css" />
+
+  {# One CSS file per template (optional per page) #}
+  {% block page_css %}{% endblock %}
+
+  <link rel="icon" href="{{ STATIC_PREFIX }}idrisfilms_site/img/favicon.ico" />
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% with request.resolver_match.url_name as current %}
+  <header class="site-header">
+    <div class="wrap header-wrap">
+      <nav class="topnav" aria-label="Primary">
+        <a class="brand" href="{% url 'idrisfilms_site:home' %}" aria-label="Idris Films home">
+          <span class="brand__name">IDRIS FILMS</span>
+        </a>
+
+        <ul class="nav" id="nav-desktop">
+          <li><a href="{% url 'idrisfilms_site:films' %}" class="{% if current == 'films' %}active{% endif %}">Films</a></li>
+          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' %}active{% endif %}">Commissions</a></li>
+          <li><a href="{% url 'idrisfilms_site:distribution' %}" class="{% if current == 'distribution' %}active{% endif %}">Distribution</a></li>
+          <li><a href="{% url 'idrisfilms_site:about' %}" class="{% if current == 'about' %}active{% endif %}">About</a></li>
+          <li><a href="{% url 'idrisfilms_site:news' %}" class="{% if current == 'news' %}active{% endif %}">News</a></li>
+          <li><a href="{% url 'idrisfilms_site:contact' %}" class="{% if current == 'contact' %}active{% endif %}">Contact</a></li>
+        </ul>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav-panel"
+          data-nav-toggle
+        >
+          Menu
+        </button>
+      </nav>
+
+      <div id="nav-panel" class="nav-panel" hidden data-nav-panel>
+        <ul class="nav nav--mobile" aria-label="Mobile" data-close-on-click>
+          <li><a href="{% url 'idrisfilms_site:films' %}" class="{% if current == 'films' %}active{% endif %}">Films</a></li>
+          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' %}active{% endif %}">Commissions</a></li>
+          <li><a href="{% url 'idrisfilms_site:distribution' %}" class="{% if current == 'distribution' %}active{% endif %}">Distribution</a></li>
+          <li><a href="{% url 'idrisfilms_site:about' %}" class="{% if current == 'about' %}active{% endif %}">About</a></li>
+          <li><a href="{% url 'idrisfilms_site:news' %}" class="{% if current == 'news' %}active{% endif %}">News</a></li>
+          <li><a href="{% url 'idrisfilms_site:contact' %}" class="{% if current == 'contact' %}active{% endif %}">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  {% endwith %}
+
+  <main id="main" class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <img src="{{ STATIC_PREFIX }}idrisfilms_site/img/bauhaus-mark.svg" alt="" aria-hidden="true" class="mark" />
+      <div class="footer-text">
+        <div>© <span id="year">{% now "Y" %}</span> Idris Films</div>
+        {% block footer_note %}{% endblock %}
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ STATIC_PREFIX }}idrisfilms_site/js/main.js"></script>
+</body>
+</html>

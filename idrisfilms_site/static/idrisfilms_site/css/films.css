@@ -1,0 +1,229 @@
+/* =========
+   Idris Films — Films
+   Finished projects carousel + simple indie ethos
+   Save as:
+   idrisfilms_site/static/idrisfilms_site/css/films.css
+   ========= */
+
+body.page-films{
+  --gap: 16px;
+
+  /* Carousel controls */
+  --arrow: 44px;
+  --arrow-gap: 10px;
+
+  /* Padding under media */
+  --pad: 14px;
+
+  /* Match house style */
+  --soft-line: rgba(17,17,17,.28);
+  --soft-line-strong: rgba(17,17,17,.58);
+}
+
+/* One column stack */
+.page-films .page-hero{
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.page-films .panel{
+  padding: 18px;
+}
+
+/* Head */
+.page-films .films-head{
+  margin-bottom: 12px;
+}
+
+.page-films .films-head .h1{
+  margin: 0 0 8px 0;
+}
+
+.page-films .films-head .lead{
+  margin: 0;
+  max-width: 75ch;
+}
+
+/* =========================
+   Carousel (same engine as commissions detail)
+   ========================= */
+
+.page-films .carousel{
+  display: grid;
+  grid-template-columns: var(--arrow) 1fr var(--arrow);
+  gap: var(--arrow-gap);
+  align-items: center;
+  margin-top: 14px;
+}
+
+.page-films .carousel__btn{
+  width: var(--arrow);
+  height: var(--arrow);
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 950;
+  cursor: pointer;
+  border-radius: 0;
+  opacity: 0.7;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.page-films .carousel__btn:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.page-films .carousel__viewport{
+  overflow: hidden;
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+}
+
+.page-films .carousel__track{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  will-change: transform;
+}
+
+.page-films .carousel__item{
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+/* Media */
+.page-films .carousel__media{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--soft-line-strong);
+}
+
+.page-films .carousel__media iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Text under media */
+.page-films .carousel__text{
+  padding: var(--pad);
+}
+
+.page-films .carousel__text .h2{
+  margin: 0 0 8px 0;
+}
+
+/* Optional meta row under description */
+.page-films .film-meta{
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 14px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.page-films .film-meta__item{
+  display: grid;
+  gap: 4px;
+}
+
+.page-films .film-meta__label{
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.page-films .film-meta__value{
+  font-weight: 700;
+}
+
+/* Underline CTA link */
+.page-films .film-link{
+  align-self: end;
+  justify-self: end;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+  border-bottom: 1px solid var(--soft-line-strong);
+  padding-bottom: 6px;
+
+  opacity: 0.9;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.page-films .film-link:hover{
+  transform: translateX(2px);
+  opacity: 1;
+}
+
+/* =========================
+   Ethos block (how we work)
+   ========================= */
+
+.page-films .ethos{
+  margin-top: 16px;
+  border-top: 1px solid var(--soft-line);
+  padding-top: 14px;
+}
+
+.page-films .ethos .h2{
+  margin: 0 0 10px 0;
+}
+
+.page-films .ethos p{
+  margin: 0;
+  max-width: 80ch;
+}
+
+/* =========================
+   Mobile
+   ========================= */
+
+@media (max-width: 980px){
+  .page-films .carousel{
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .page-films .carousel__btn{
+    display: none;
+  }
+
+  .page-films .carousel__viewport{
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .page-films .carousel__track{
+    width: max-content;
+  }
+
+  .page-films .carousel__item{
+    scroll-snap-align: start;
+    min-width: 92vw;
+  }
+
+  .page-films .film-meta{
+    grid-template-columns: 1fr;
+  }
+
+  .page-films .film-link{
+    justify-self: start;
+  }
+}
