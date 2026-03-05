@@ -18,7 +18,7 @@
     <header class="films-head">
       <h1 class="h1">Films</h1>
       <p class="lead">
-        Finished film projects — productions and co-productions with other creatives.
+        Finished film projects - productions and co-productions with other creatives.
       </p>
     </header>
 
@@ -32,7 +32,11 @@
               <li class="carousel__item" data-carousel-slide>
 
                 <div class="carousel__media">
-                  {% if s.embed_html %}
+                  {% if s.image %}
+                    <img
+                      src="{{ s.image.url }}"
+                      alt="{% if s.image_alt %}{{ s.image_alt }}{% elif s.title %}{{ s.title }}{% else %}Film image{% endif %}">
+                  {% elif s.embed_html %}
                     {{ s.embed_html|safe }}
                   {% elif s.embed_url %}
                     <iframe
@@ -53,10 +57,6 @@
                   {% if s.caption %}
                     <p class="muted" style="margin:0;">{{ s.caption }}</p>
                   {% endif %}
-
-                  {# Optional: if you later add fields like year/type/link, you can show them here #}
-                  {# Example meta block kept but safe to omit entirely #}
-                  {# <div class="film-meta"> ... </div> #}
                 </div>
 
               </li>
@@ -73,9 +73,9 @@
     {% endif %}
 
     <div class="ethos">
-      <h2 class="h2">How we work</h2>
+      <h2 class="h2">It's What We Love!</h2>
       <p class="muted">
-        Low-budget, independent filmmaking - practical production, small dedicated crews! We work collaboratively with other creatives, and we’re also developing a slate of projects we lead on. We’ve worked with Idioma Pictures (Lisbon) and Stiwdio Dyfi (Machynlleth).
+        We’re passionate about indie filmmaking. It’s why we started Idris Films, to produce exciting, original films for cinemas and VOD. We love practical, low-budget production with small, dedicated crews. We work collaboratively with other creatives, and we are also developing a slate of projects we lead on. We’ve worked with Idioma Pictures (Lisbon) and Stiwdio Dyfi (Machynlleth).
       </p>
     </div>
 

@@ -68,11 +68,13 @@
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <img src="{{ STATIC_PREFIX }}idrisfilms_site/img/bauhaus-mark.svg" alt="" aria-hidden="true" class="mark" />
-      <div class="footer-text">
-        <div>© <span id="year">{% now "Y" %}</span> Idris Films</div>
-        {% block footer_note %}{% endblock %}
-      </div>
+      <!-- Updated footer logo -->
+      <img
+        src="{{ STATIC_PREFIX }}idrisfilms_site/img/Logo.png"
+        alt="Idris Films"
+        class="mark"
+      />
+
     </div>
   </footer>
 

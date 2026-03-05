@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Idris Films — About{% endblock %}
-{% block meta_description %}Idris Films — a small film and video outfit based in Machynlleth, Mid Wales.{% endblock %}
+{% block meta_description %}Idris Films is a film company by Welsh filmmaker Will Tremlett, producing original films and commissions in Welsh and English.{% endblock %}
 
 {% block body_class %}page-about{% endblock %}
 {% block page_css %}
@@ -14,13 +14,59 @@
   <div class="panel">
     <h1 class="h1">About</h1>
 
-    <p class="lead">
-      Idris Films is a small film and video outfit based in Machynlleth, Mid Wales.
-    </p>
+    <div class="about-copy">
+      <p class="lead">
+        Idris Films is a film company by Welsh filmmaker Will Tremlett which he started in 2022 and named after a local mountain he hikes, Cadair Idris (not Idris Elba, although we do love you too), in Mid Wales there are lots of businesses called Idris e.g Idris Stores, Idris Sound System etc. 
+      </p>
 
-    <p class="muted" style="margin:0;">
-      Started by Will Tremlett. We work across films and commissioned projects, often in collaboration with others.
-    </p>
+      <p class="muted" style="margin:0 0 12px 0;">
+        We’re focused on producing original films for cinema and community screenings and we also offer a range of services from co-production to commissions for local and international brands and businesses. Wills background in the third sector and ability to work and produce films bilingually in Welsh and English also helps us produce great funding films for non profits here in Wales.
+      </p>
+
+      <p class="muted" style="margin:0;">
+        In 2026 Idris Films began distribution services in collaboration with Community Cinema Circuit Smoovie.
+      </p>
+<br>
+       <p class="muted" style="margin:0;">
+        We're currently developing a feature film written and directed by Nadia Gillard and Will Tremlett.
+      </p>
+    </div>
+
+    {% if slides %}
+      <div class="carousel" data-carousel aria-label="About image carousel">
+        <button class="carousel__btn" type="button" aria-label="Previous" data-carousel-prev>←</button>
+
+        <div class="carousel__viewport" role="region" aria-label="About images">
+          <ul class="carousel__track" data-carousel-track>
+            {% for s in slides %}
+              <li class="carousel__item" data-carousel-slide>
+                <div class="carousel__media">
+                  {% if s.image %}
+                    <img
+                      src="{{ s.image.url }}"
+                      alt="{% if s.image_alt %}{{ s.image_alt }}{% elif s.title %}{{ s.title }}{% else %}Idris Films image{% endif %}">
+                  {% endif %}
+                </div>
+
+                {% if s.title or s.caption %}
+                  <div class="carousel__text">
+                    {% if s.title %}
+                      <div class="carousel__title">{{ s.title }}</div>
+                    {% endif %}
+                    {% if s.caption %}
+                      <p class="muted" style="margin:0;">{{ s.caption }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <button class="carousel__btn" type="button" aria-label="Next" data-carousel-next>→</button>
+      </div>
+    {% endif %}
+
   </div>
 </section>
 {% endblock %}

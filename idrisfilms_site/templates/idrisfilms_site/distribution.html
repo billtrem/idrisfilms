@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Idris Films — Distribution{% endblock %}
-{% block meta_description %}Idris Films is developing a simple distribution service for independent films via community cinemas.{% endblock %}
+{% block meta_description %}Idris Films distribution services for independent films via community cinemas.{% endblock %}
 
 {% block body_class %}page-distribution{% endblock %}
 {% block page_css %}
@@ -12,27 +12,116 @@
 {% block content %}
 <section class="grid page-hero" aria-label="Distribution">
   <div class="panel">
+
     <h1 class="h1">Distribution</h1>
 
-    <p class="lead">
-      We are developing a distribution service in collaboration with Smoovie, to help independent films reach a community cinema circuit.
-    </p>
+    {% if page and page.summary %}
+      <p class="lead">{{ page.summary }}</p>
+    {% else %}
+      <p class="lead">
+        Idris Films is collaborating with Smoovie, a UK wide community cinema circuit to screen indie films in communities across the country.
+      </p>
 
-    <div class="rule"></div>
+      <p class="muted" style="margin:0 0 12px 0;">
+        Our current release is a series of compilation made from a curation of short films showcasing Welsh talent.
+      </p>
 
-    <p class="muted" style="margin:0;">
-      Right now we are working on a series of Welsh short film compilations curated and packaged by Idris Films.
-    </p>
+      <p class="muted" style="margin:0;">
+        If you’re interested in releasing a film to cinema and community cinema circuits with our help get in touch!
+      </p>
+    {% endif %}
 
-    <div class="rule"></div>
+    {% if slides %}
+      <div class="carousel" data-carousel aria-label="Distribution carousel">
+        <button class="carousel__btn" type="button" aria-label="Previous" data-carousel-prev>←</button>
 
-    <p class="muted" style="margin:0;">
-      If you are a filmmaker interested in working on a release, get in touch via the contact page.
-    </p>
+        <div class="carousel__viewport" role="region" aria-label="Distribution slides">
+          <ul class="carousel__track" data-carousel-track>
+            {% for s in slides %}
+              <li class="carousel__item" data-carousel-slide>
 
-    <div class="dist-cta">
-      <a class="dist-link" href="{% url 'idrisfilms_site:contact' %}">Contact →</a>
-    </div>
+                <div class="carousel__media">
+                  {% if s.image %}
+                    <img
+                      src="{{ s.image.url }}"
+                      alt="{% if s.image_alt %}{{ s.image_alt }}{% elif s.title %}{{ s.title }}{% else %}Distribution image{% endif %}">
+                  {% elif s.embed_html %}
+                    {{ s.embed_html|safe }}
+                  {% elif s.embed_url %}
+                    <iframe
+                      src="{{ s.embed_url }}"
+                      title="{% if s.title %}{{ s.title }}{% else %}Distribution video{% endif %}"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen></iframe>
+                  {% endif %}
+                </div>
+
+                {% if s.title or s.caption %}
+                  <div class="carousel__text">
+                    {% if s.title %}
+                      <div class="carousel__title">{{ s.title }}</div>
+                    {% endif %}
+                    {% if s.caption %}
+                      <p class="muted" style="margin:0;">{{ s.caption }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <button class="carousel__btn" type="button" aria-label="Next" data-carousel-next>→</button>
+      </div>
+    {% endif %}
+
+    {% if blocks %}
+      <div class="dist-blocks">
+        {% for block in blocks %}
+          {% if block.is_active %}
+            <section class="content-block content-block--{{ block.block_type }}">
+              {% if block.heading %}
+                <h2 class="h2">{{ block.heading }}</h2>
+              {% endif %}
+
+              {% if block.block_type == "rich_text" %}
+                {{ block.body|safe }}
+
+              {% elif block.block_type == "image" %}
+                {% if block.image %}
+                  <img class="dist-block-image" src="{{ block.image.url }}" alt="{{ block.heading|default:'Image' }}">
+                {% elif block.image_url %}
+                  <img class="dist-block-image" src="{{ block.image_url }}" alt="{{ block.heading|default:'Image' }}">
+                {% endif %}
+                {% if block.body %}
+                  <p class="muted" style="margin:10px 0 0;">{{ block.body|safe }}</p>
+                {% endif %}
+
+              {% elif block.block_type == "embed" %}
+                {{ block.body|safe }}
+
+              {% elif block.block_type == "cta" %}
+                {% if block.body %}
+                  {{ block.body|safe }}
+                {% endif %}
+                {% if block.button_url and block.button_text %}
+                  <p style="margin:12px 0 0;">
+                    <a class="dist-link" href="{{ block.button_url }}">{{ block.button_text }} →</a>
+                  </p>
+                {% endif %}
+
+              {% else %}
+                {{ block.body|safe }}
+              {% endif %}
+            </section>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
   </div>
 </section>
 {% endblock %}

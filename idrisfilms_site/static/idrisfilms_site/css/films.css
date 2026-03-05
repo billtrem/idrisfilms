@@ -134,8 +134,20 @@ body.page-films{
   padding: var(--pad);
 }
 
+.page-films .carousel__text > *{
+  max-width: none;   /* let text fill the caption box */
+  width: 100%;
+}
+
 .page-films .carousel__text .h2{
   margin: 0 0 8px 0;
+}
+
+/* ✅ Improve paragraph readability + prevent overflow */
+.page-films .carousel__text p{
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 /* Ethos */
@@ -151,9 +163,11 @@ body.page-films{
 
 .page-films .ethos p{
   margin: 0;
-  max-width: 80ch;
+  max-width: none;     /* fill the panel width */
+  width: 100%;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
-
 /* =========================
    Mobile
    - carousel becomes: viewport on top
@@ -161,10 +175,6 @@ body.page-films{
    ========================= */
 
 @media (max-width: 980px){
-  /* Turn into a 2-row layout:
-     row 1 = viewport
-     row 2 = prev + next (two columns)
-  */
   .page-films .carousel{
     grid-template-columns: 1fr 1fr;
     grid-template-areas:

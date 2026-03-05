@@ -158,12 +158,25 @@ def _to_embed_url(url: str) -> str:
 class CarouselSlide(models.Model):
     """
     Used for commissions DETAIL pages only (/commissions/<slug>/).
+
+    Slides can be either:
+    - a video embed (embed_url / embed_html), OR
+    - an image (upload)
     """
     page = models.ForeignKey(Page, related_name="slides", on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
     caption = models.TextField(blank=True)
 
+    # Optional image slide
+    image = CloudinaryField("image", blank=True, null=True)
+    image_alt = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Alt text for the image (optional, but recommended).",
+    )
+
+    # Optional video slide
     embed_url = models.URLField(
         blank=True,
         help_text="Paste a normal YouTube/Vimeo link OR an embed URL. We'll convert YouTube/Vimeo links automatically.",
@@ -180,6 +193,7 @@ class CarouselSlide(models.Model):
         ordering = ["sort_order", "id"]
 
     def save(self, *args, **kwargs):
+        # If using a video URL (and not raw HTML), normalize it to an embed URL
         if self.embed_url and not self.embed_html:
             self.embed_url = _to_embed_url(self.embed_url.strip())
         super().save(*args, **kwargs)

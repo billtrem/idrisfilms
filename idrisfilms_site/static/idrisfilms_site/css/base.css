@@ -270,9 +270,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .mark{
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--line-strong);
+  width: 120px;     /* tweak size as you like */
+  height: auto;     /* keeps aspect ratio */
+  border: 0;        /* optional: remove the square border */
+  display: block;
 }
 
 .footer-text{

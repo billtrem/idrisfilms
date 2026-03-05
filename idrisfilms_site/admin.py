@@ -22,7 +22,16 @@ class ContentBlockInline(admin.TabularInline):
 class CarouselSlideInline(admin.TabularInline):
     model = CarouselSlide
     extra = 1
-    fields = ("sort_order", "is_active", "title", "caption", "embed_url", "embed_html")
+    fields = (
+        "sort_order",
+        "is_active",
+        "title",
+        "caption",
+        "image",       # ✅ new
+        "image_alt",   # ✅ new
+        "embed_url",
+        "embed_html",
+    )
     ordering = ("sort_order",)
 
 

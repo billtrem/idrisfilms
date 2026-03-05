@@ -49,11 +49,10 @@ body.page-commission-detail{
   opacity: 0.75;
 }
 
-/* Softer rule */
+/* REMOVE divider rules on these pages (no messy lines under headings/back links) */
 .page-commissions .rule,
 .page-commission-detail .rule{
-  border-top: 1px solid var(--soft-line-strong);
-  margin: 14px 0;
+  display: none;
 }
 
 /* =========================
@@ -76,7 +75,9 @@ body.page-commission-detail{
   position: relative;
   overflow: hidden;
   background: #000;
-  border-bottom: 1px solid var(--soft-line-strong);
+
+  /* REMOVE the line under the showreel video */
+  border-bottom: 0;
 }
 
 .page-commissions .showreel__media iframe{
@@ -114,11 +115,19 @@ body.page-commission-detail{
   border-radius: 0;
   opacity: 0.7;
   transition: opacity 160ms ease, transform 160ms ease;
+  display: grid;
+  place-items: center;
 }
 
 .page-commission-detail .carousel__btn:hover{
   opacity: 1;
   transform: translateY(-1px);
+}
+
+.page-commission-detail .carousel__btn:disabled{
+  opacity: 0.25;
+  cursor: default;
+  transform: none;
 }
 
 .page-commission-detail .carousel__viewport{
@@ -137,6 +146,7 @@ body.page-commission-detail{
 }
 
 .page-commission-detail .carousel__item{
+  flex: 0 0 100%;
   min-width: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -305,29 +315,48 @@ body.page-commission-detail{
   margin-top: 18px;
 }
 
-/* Mobile */
+/* Mobile — match Films: buttons underneath, not a scroller */
 @media (max-width: 980px){
   .page-commission-detail .carousel{
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .page-commission-detail .carousel__btn{
-    display: none;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "viewport viewport"
+      "prev next";
+    gap: 10px;
+    align-items: stretch;
   }
 
   .page-commission-detail .carousel__viewport{
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    grid-area: viewport;
+    width: 100%;
+    overflow: hidden;        /* keep JS translateX behaviour */
+    overflow-x: hidden;
+    scroll-snap-type: none;  /* kill scroller behaviour */
   }
 
   .page-commission-detail .carousel__track{
-    width: max-content;
+    width: 100%;             /* kill max-content */
   }
 
   .page-commission-detail .carousel__item{
-    scroll-snap-align: start;
-    min-width: 92vw;
+    min-width: 100%;
+    scroll-snap-align: unset;
+  }
+
+  .page-commission-detail .carousel__btn{
+    display: grid;           /* show buttons */
+    place-items: center;
+    width: 100%;
+    height: 44px;
+    transform: none;
+  }
+
+  .page-commission-detail .carousel__btn[data-carousel-prev]{
+    grid-area: prev;
+  }
+
+  .page-commission-detail .carousel__btn[data-carousel-next]{
+    grid-area: next;
   }
 
   .page-commissions .services-grid{

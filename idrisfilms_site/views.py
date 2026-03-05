@@ -26,7 +26,6 @@ def films(request):
     """
     /films/ page:
     - carousel slides stored on the Page with slug="films"
-    - (optional) content blocks later if you want
     """
     films_page = Page.objects.filter(slug="films", is_published=True).first()
 
@@ -55,11 +54,35 @@ def films(request):
 
 
 def distribution(request):
-    return render(request, "idrisfilms_site/distribution.html", {"active_page": "distribution"})
+    page = Page.objects.filter(slug="distribution", is_published=True).first()
+    slides = page.slides.filter(is_active=True).order_by("sort_order", "id") if page else []
+    blocks = page.blocks.filter(is_active=True).order_by("sort_order", "id") if page else []
+
+    return render(
+        request,
+        "idrisfilms_site/distribution.html",
+        {
+            "active_page": "distribution",
+            "page": page,
+            "slides": slides,
+            "blocks": blocks,
+        },
+    )
 
 
 def about(request):
-    return render(request, "idrisfilms_site/about.html", {"active_page": "about"})
+    page = Page.objects.filter(slug="about", is_published=True).first()
+    slides = page.slides.filter(is_active=True).order_by("sort_order", "id") if page else []
+
+    return render(
+        request,
+        "idrisfilms_site/about.html",
+        {
+            "active_page": "about",
+            "page": page,
+            "slides": slides,
+        },
+    )
 
 
 def news(request):

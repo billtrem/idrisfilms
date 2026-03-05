@@ -1,17 +1,235 @@
 /* =========
-   Idris Films — About page (minimal)
+   Idris Films — About page
+   Adds an image carousel (Films-style)
    Save as:
    idrisfilms_site/static/idrisfilms_site/css/about.css
    ========= */
 
 body.page-about{
   --gap: 16px;
+
+  /* Desktop arrow size */
+  --arrow: 44px;
+  --arrow-gap: 10px;
+
+  /* Padding under media */
+  --pad: 14px;
+
+  /* Match house style */
+  --soft-line: rgba(17,17,17,.28);
+  --soft-line-strong: rgba(17,17,17,.58);
 }
 
 .page-about .page-hero{
   grid-template-columns: 1fr;
+  gap: var(--gap);
 }
 
 .page-about .panel{
   padding: 18px;
+}
+
+/* Make the intro copy easier to read (no full-width wall of text) */
+.page-about .about-copy{
+  max-width: 72ch;
+}
+
+.page-about .about-copy .lead{
+  margin-bottom: 10px;
+}
+
+/* Give breathing room before the carousel */
+.page-about .carousel{
+  margin-top: 18px;
+}
+
+/* =========================
+   Carousel (Films-style)
+   ========================= */
+
+.page-about .carousel{
+  display: grid;
+  grid-template-columns: var(--arrow) 1fr var(--arrow);
+  gap: var(--arrow-gap);
+  align-items: center;
+}
+
+/* Buttons */
+.page-about .carousel__btn{
+  width: var(--arrow);
+  height: var(--arrow);
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 950;
+  cursor: pointer;
+  border-radius: 0;
+  opacity: 0.75;
+  transition: opacity 160ms ease, transform 160ms ease;
+  display: grid;
+  place-items: center;
+}
+
+.page-about .carousel__btn:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.page-about .carousel__btn:disabled{
+  opacity: 0.25 !important;
+  cursor: default;
+  transform: none;
+}
+
+/* Viewport */
+.page-about .carousel__viewport{
+  overflow: hidden;
+  border: 1px solid var(--soft-line-strong);
+  background: transparent;
+}
+
+/* Track moved by JS */
+.page-about .carousel__track{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  will-change: transform;
+}
+
+/* Slide full width */
+.page-about .carousel__item{
+  flex: 0 0 100%;
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+/* Media */
+.page-about .carousel__media{
+  width: 100%;
+  aspect-ratio: 4 / 3; /* nicer for photos */
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--soft-line-strong);
+}
+
+/* Image fills the frame */
+.page-about .carousel__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text under image */
+.page-about .carousel__text{
+  padding: 12px 14px;
+}
+
+/* Smaller, calmer title than an H2 */
+.page-about .carousel__title{
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  opacity: 0.9;
+}
+
+/* =========================
+   Mobile (exactly like Films)
+   ========================= */
+
+@media (max-width: 980px){
+  .page-about .about-copy{
+    max-width: 100%;
+  }
+
+  .page-about .carousel{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "viewport viewport"
+      "prev next";
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .page-about .carousel__viewport{
+    grid-area: viewport;
+    width: 100%;
+  }
+
+  .page-about .carousel__btn[data-carousel-prev]{
+    grid-area: prev;
+    width: 100%;
+    height: 44px;
+    transform: none;
+  }
+
+  .page-about .carousel__btn[data-carousel-next]{
+    grid-area: next;
+    width: 100%;
+    height: 44px;
+    transform: none;
+  }
+}
+
+/* ===== About layout: two columns on desktop, stacked on mobile ===== */
+
+@media (min-width: 981px){
+  .page-about .panel{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 22px;
+    align-items: start;
+  }
+
+  /* Keep header + copy in left column */
+  .page-about h1.h1,
+  .page-about .about-copy{
+    grid-column: 1;
+  }
+
+  /* Put carousel in right column */
+  .page-about .carousel{
+    grid-column: 2;
+    margin-top: 6px; /* don’t push it down too far */
+  }
+
+  /*
+    CHANGE: arrows underneath on desktop too.
+    We keep the two-column panel layout, but make the carousel use the
+    same grid as mobile (viewport row + two buttons underneath).
+  */
+  .page-about .carousel{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "viewport viewport"
+      "prev next";
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .page-about .carousel__viewport{
+    grid-area: viewport;
+  }
+
+  .page-about .carousel__btn[data-carousel-prev]{
+    grid-area: prev;
+    width: 100%;
+    height: 44px;
+    transform: none;
+  }
+
+  .page-about .carousel__btn[data-carousel-next]{
+    grid-area: next;
+    width: 100%;
+    height: 44px;
+    transform: none;
+  }
 }
