@@ -43,6 +43,15 @@ body.page-home{
   overflow: hidden;
   background: rgba(0,0,0,0.06);
 }
+
+/* NEW: real images should fill the box */
+.page-home .home-media__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .page-home .home-media__placeholder{
   aspect-ratio: 16 / 9;
   display: flex;
@@ -89,7 +98,8 @@ body.page-home{
 
 .page-home .tile{
   display: grid;
-  grid-template-rows: 150px auto;
+  /* UPDATED: make the tiles taller (same width, more height) */
+grid-template-rows: 240px auto;
   border: 2px solid var(--line);
   border-radius: 0;
   overflow: hidden;
