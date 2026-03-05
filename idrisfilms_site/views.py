@@ -3,7 +3,6 @@ from .models import Page
 
 
 def home(request):
-    # Pull top 3 commission categories (child pages of "commissions")
     commissions_page = Page.objects.filter(slug="commissions", is_published=True).first()
     commission_tiles = (
         Page.objects.filter(parent=commissions_page, is_published=True)
@@ -12,12 +11,17 @@ def home(request):
         else Page.objects.none()
     )
 
+    films_page = Page.objects.filter(slug="films", is_published=True).first()
+    distribution_page = Page.objects.filter(slug="distribution", is_published=True).first()
+
     return render(
         request,
         "idrisfilms_site/home.html",
         {
             "active_page": "home",
             "commission_tiles": commission_tiles,
+            "films_page": films_page,
+            "distribution_page": distribution_page,
         },
     )
 

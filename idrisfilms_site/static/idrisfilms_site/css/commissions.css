@@ -190,6 +190,13 @@ body.page-commission-detail{
   margin-top: 14px;
 }
 
+/* ✅ Wide desktop: 3 across (matches base --max: 1400px) */
+@media (min-width: 1200px){
+  .page-commissions .services-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Card: image + title + optional summary */
 .page-commissions .service-card{
   display:grid;
