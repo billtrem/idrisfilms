@@ -42,7 +42,7 @@ body.page-films{
 
 .page-films .films-head .lead{
   margin: 0;
-  max-width: 75ch;
+  max-width: none;
 }
 
 /* =========================
