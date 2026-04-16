@@ -40,6 +40,50 @@ body.page-commission-detail{
   margin-top: 0;
 }
 
+/* Work page heading style */
+.page-commissions .work-head{
+  max-width: 760px;
+  margin-bottom: 14px;
+}
+
+.page-commissions .work-kicker{
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-commissions .work-lead{
+  margin: 0 0 18px 0;
+  max-width: 620px;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.page-commissions .work-section-title{
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-commissions .work-categories-head{
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.page-commissions .work-sublead{
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(17,17,17,.68);
+}
+
 /* Keep kickers plain if they appear */
 .page-commissions .kicker,
 .page-commission-detail .kicker{
@@ -336,13 +380,13 @@ body.page-commission-detail{
   .page-commission-detail .carousel__viewport{
     grid-area: viewport;
     width: 100%;
-    overflow: hidden;        /* keep JS translateX behaviour */
+    overflow: hidden;
     overflow-x: hidden;
-    scroll-snap-type: none;  /* kill scroller behaviour */
+    scroll-snap-type: none;
   }
 
   .page-commission-detail .carousel__track{
-    width: 100%;             /* kill max-content */
+    width: 100%;
   }
 
   .page-commission-detail .carousel__item{
@@ -351,7 +395,7 @@ body.page-commission-detail{
   }
 
   .page-commission-detail .carousel__btn{
-    display: grid;           /* show buttons */
+    display: grid;
     place-items: center;
     width: 100%;
     height: 44px;
@@ -368,5 +412,14 @@ body.page-commission-detail{
 
   .page-commissions .services-grid{
     grid-template-columns: 1fr;
+  }
+
+  .page-commissions .work-lead{
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .page-commissions .work-sublead{
+    font-size: 0.92rem;
   }
 }

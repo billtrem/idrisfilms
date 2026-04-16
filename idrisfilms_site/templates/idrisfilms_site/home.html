@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Idris Films{% endblock %}
-{% block meta_description %}Idris Films — films, commissions, and distribution.{% endblock %}
+{% block meta_description %}Idris Films creates commissioned video content, promotional films, event films and documentaries.{% endblock %}
 
 {% block body_class %}page-home{% endblock %}
 {% block page_css %}
@@ -12,17 +12,18 @@
 {% block content %}
 <section class="grid home-stack" aria-label="Homepage">
 
-  {# FILMS (single hero) #}
-  <section class="panel home-hero" aria-label="Films">
-    <div class="home-hero__media" aria-label="Featured film image">
+  <section class="panel home-hero" aria-label="Work">
+    <div class="home-hero__media" aria-label="Featured work image">
       <div class="home-media">
-        {% if films_page and films_page.card_image %}
-          <img class="home-media__img" src="{{ films_page.card_image.url }}" alt="Films">
+        {% if commission_tiles and commission_tiles.0.card_image %}
+          <img class="home-media__img" src="{{ commission_tiles.0.card_image.url }}" alt="Featured work">
+        {% elif films_page and films_page.card_image %}
+          <img class="home-media__img" src="{{ films_page.card_image.url }}" alt="Featured work">
         {% elif films_page and films_page.card_image_url %}
-          <img class="home-media__img" src="{{ films_page.card_image_url }}" alt="Films">
+          <img class="home-media__img" src="{{ films_page.card_image_url }}" alt="Featured work">
         {% else %}
           <div class="home-media__placeholder">
-            <div class="tiny muted">Featured film image</div>
+            <div class="tiny muted">Featured work image</div>
           </div>
         {% endif %}
       </div>
@@ -31,23 +32,26 @@
     <div class="home-hero__text">
       <h1 class="h1">Idris Films</h1>
       <p class="lead">
-        Specialist indie production services for original film projects, delivered through co-productions with directors, producers and creative teams.
+        Commissioned video content for businesses, organisations, artists, events and places.
       </p>
 
-      <a class="home-link" href="{% url 'idrisfilms_site:films' %}">
-        View films →
+      <p class="muted">
+        We create promotional films, documentaries, campaign videos, social content and event films that are clear, polished and built to connect with audiences.
+      </p>
+
+      <a class="home-link" href="{% url 'idrisfilms_site:commissions' %}">
+        View work →
       </a>
     </div>
   </section>
 
-  {# COMMISSIONS #}
-  <section class="panel" aria-label="Commissions">
-    <h2 class="h2">Commissions</h2>
+  <section class="panel" aria-label="Work categories">
+    <h2 class="h2">Work</h2>
     <p class="muted">
-      Promotional and documentary films for businesses, artists, organisations and special places to stay.
+      Selected commissioned video work across different formats and sectors.
     </p>
 
-    <div class="home-tiles" aria-label="Commission categories">
+    <div class="home-tiles" aria-label="Work categories">
       {% for p in commission_tiles %}
         <a class="tile" href="{% url 'idrisfilms_site:commission_detail' p.slug %}">
           <div class="tile__media">
@@ -64,46 +68,25 @@
           </div>
         </a>
       {% empty %}
-        <div class="muted tiny">Add commission category pages under “Commissions” in admin.</div>
+        <div class="muted tiny">Add work category pages under “Commissions” in admin.</div>
       {% endfor %}
     </div>
 
     <a class="home-link" href="{% url 'idrisfilms_site:commissions' %}">
-      View all commissions →
+      See all work →
     </a>
   </section>
 
-  {# DISTRIBUTION #}
-  <section class="panel home-split" aria-label="Distribution">
-    <div class="home-split__left">
-      <h2 class="h2">Distribution</h2>
-      <p class="muted">
-        Helping independent films reach audiences through community cinema and alternative exhibition.
-      </p>
+  <section class="panel" aria-label="Original films">
+    <h2 class="h2">Films</h2>
+    <p class="muted">
+      Alongside commissioned work, we also develop and produce selected original film projects.
+    </p>
 
-      <a class="home-link" href="{% url 'idrisfilms_site:distribution' %}">
-        Learn more →
-      </a>
-    </div>
-
-    <div class="home-split__right" aria-label="Distribution image">
-      <div class="home-media">
-        {% if distribution_page and distribution_page.card_image %}
-          <img class="home-media__img" src="{{ distribution_page.card_image.url }}" alt="Distribution">
-        {% elif distribution_page and distribution_page.card_image_url %}
-          <img class="home-media__img" src="{{ distribution_page.card_image_url }}" alt="Distribution">
-        {% else %}
-          <div class="home-media__placeholder">
-            <div class="tiny muted">Poster or still</div>
-          </div>
-        {% endif %}
-      </div>
-    </div>
+    <a class="home-link" href="{% url 'idrisfilms_site:films' %}">
+      Explore films →
+    </a>
   </section>
 
 </section>
-{% endblock %}
-
-{% block footer_note %}
-<div class="muted tiny">Built for clarity.</div>
 {% endblock %}

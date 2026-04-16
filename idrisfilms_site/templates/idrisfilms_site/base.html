@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <title>{% block title %}Idris Films{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}Idris Films — films, commissions, and indie distribution.{% endblock %}" />
+  <meta name="description" content="{% block meta_description %}Idris Films — commissioned video content and creative film work.{% endblock %}" />
 
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/base.css" />
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/styles.css" />
@@ -29,12 +29,8 @@
         </a>
 
         <ul class="nav" id="nav-desktop">
-          <li><a href="{% url 'idrisfilms_site:films' %}" class="{% if current == 'films' %}active{% endif %}">Films</a></li>
-          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' %}active{% endif %}">Commissions</a></li>
-          <li><a href="{% url 'idrisfilms_site:distribution' %}" class="{% if current == 'distribution' %}active{% endif %}">Distribution</a></li>
-          <li><a href="{% url 'idrisfilms_site:about' %}" class="{% if current == 'about' %}active{% endif %}">About</a></li>
-          <li><a href="{% url 'idrisfilms_site:news' %}" class="{% if current == 'news' %}active{% endif %}">News</a></li>
-          <li><a href="{% url 'idrisfilms_site:contact' %}" class="{% if current == 'contact' %}active{% endif %}">Contact</a></li>
+          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' or current == 'commission_detail' %}active{% endif %}">Work</a></li>
+          <li><a href="{% url 'idrisfilms_site:info' %}" class="{% if current == 'info' %}active{% endif %}">Info</a></li>
         </ul>
 
         <button
@@ -50,12 +46,8 @@
 
       <div id="nav-panel" class="nav-panel" hidden data-nav-panel>
         <ul class="mobile-nav" aria-label="Mobile" data-close-on-click>
-          <li><a href="{% url 'idrisfilms_site:films' %}" class="{% if current == 'films' %}active{% endif %}">Films</a></li>
-          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' %}active{% endif %}">Commissions</a></li>
-          <li><a href="{% url 'idrisfilms_site:distribution' %}" class="{% if current == 'distribution' %}active{% endif %}">Distribution</a></li>
-          <li><a href="{% url 'idrisfilms_site:about' %}" class="{% if current == 'about' %}active{% endif %}">About</a></li>
-          <li><a href="{% url 'idrisfilms_site:news' %}" class="{% if current == 'news' %}active{% endif %}">News</a></li>
-          <li><a href="{% url 'idrisfilms_site:contact' %}" class="{% if current == 'contact' %}active{% endif %}">Contact</a></li>
+          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' or current == 'commission_detail' %}active{% endif %}">Work</a></li>
+          <li><a href="{% url 'idrisfilms_site:info' %}" class="{% if current == 'info' %}active{% endif %}">Info</a></li>
         </ul>
       </div>
     </div>
@@ -68,13 +60,11 @@
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <!-- Updated footer logo -->
       <img
         src="{{ STATIC_PREFIX }}idrisfilms_site/img/Logo.png"
         alt="Idris Films"
         class="mark"
       />
-
     </div>
   </footer>
 

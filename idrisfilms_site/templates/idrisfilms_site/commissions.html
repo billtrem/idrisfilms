@@ -1,7 +1,7 @@
 {% extends "idrisfilms_site/base.html" %}
 {% load static %}
 
-{% block title %}Idris Films — Commissions{% endblock %}
+{% block title %}Idris Films — Work{% endblock %}
 {% block body_class %}page-commissions{% endblock %}
 
 {% block page_css %}
@@ -9,25 +9,26 @@
 {% endblock %}
 
 {% block content %}
-<section class="grid page-hero" aria-label="Commissions">
+<section class="grid page-hero" aria-label="Work">
 
   <div class="panel commissions-top">
 
-    <div class="video-edge-align">
-      <h1 class="h1">Commissions</h1>
+    <div class="video-edge-align work-head">
 
-      <p class="lead">
-We produce package and bespoke promotional films, documentaries, event films, campaign videos, social content, splash films and place-based films for businesses, artists, organisations, and special places to stay.
-      <div class="rule"></div>
-      <h2 class="h2">Showreel</h2>
+
+      <p class="work-lead">
+        We work with a wide range of clients to make impactful films that get seen.
+      </p>
+
+      <h2 class="work-section-title">Showreel</h2>
     </div>
 
     {% if showreel_url %}
-      <div class="showreel" aria-label="Commission showreel">
+      <div class="showreel" aria-label="Work showreel">
         <div class="showreel__media">
           <iframe
             src="{{ showreel_url }}"
-            title="Idris Films – Commission showreel"
+            title="Idris Films – Work showreel"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
@@ -37,7 +38,7 @@ We produce package and bespoke promotional films, documentaries, event films, ca
           {% if showreel_caption %}
             <p class="muted">{{ showreel_caption }}</p>
           {% else %}
-            <p class="muted">A short selection of work.</p>
+            <p class="muted">A short selection of recent work.</p>
           {% endif %}
         </div>
       </div>
@@ -46,15 +47,14 @@ We produce package and bespoke promotional films, documentaries, event films, ca
         <p class="muted">Add a showreel URL in admin: Pages → Commissions.</p>
       </div>
     {% endif %}
-<br>
+
     {% if service_pages %}
-      <div class="video-edge-align">
-        <div class="rule"></div>
-        <h2 class="h2">Categories</h2>
-        <p class="lead">Choose a category to see examples.</p>
+      <div class="video-edge-align work-categories-head">
+        <h2 class="work-section-title">Categories</h2>
+        <p class="work-sublead">Choose a category to see examples.</p>
       </div>
 
-      <div class="services-grid" aria-label="Commission categories">
+      <div class="services-grid" aria-label="Work categories">
         {% for p in service_pages %}
           <a class="service-card" href="{% url 'idrisfilms_site:commission_detail' p.slug %}">
             <div class="service-card__media">

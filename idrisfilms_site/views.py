@@ -12,7 +12,6 @@ def home(request):
     )
 
     films_page = Page.objects.filter(slug="films", is_published=True).first()
-    distribution_page = Page.objects.filter(slug="distribution", is_published=True).first()
 
     return render(
         request,
@@ -21,16 +20,11 @@ def home(request):
             "active_page": "home",
             "commission_tiles": commission_tiles,
             "films_page": films_page,
-            "distribution_page": distribution_page,
         },
     )
 
 
 def films(request):
-    """
-    /films/ page:
-    - carousel slides stored on the Page with slug="films"
-    """
     films_page = Page.objects.filter(slug="films", is_published=True).first()
 
     slides = (
@@ -57,10 +51,40 @@ def films(request):
     )
 
 
+def info(request):
+    page = Page.objects.filter(slug="about", is_published=True).first()
+
+    slides = (
+        page.slides.filter(is_active=True).order_by("sort_order", "id")
+        if page
+        else Page.objects.none()
+    )
+
+    return render(
+        request,
+        "idrisfilms_site/info.html",
+        {
+            "active_page": "info",
+            "page": page,
+            "slides": slides,
+        },
+    )
+
+
 def distribution(request):
     page = Page.objects.filter(slug="distribution", is_published=True).first()
-    slides = page.slides.filter(is_active=True).order_by("sort_order", "id") if page else []
-    blocks = page.blocks.filter(is_active=True).order_by("sort_order", "id") if page else []
+
+    slides = (
+        page.slides.filter(is_active=True).order_by("sort_order", "id")
+        if page
+        else Page.objects.none()
+    )
+
+    blocks = (
+        page.blocks.filter(is_active=True).order_by("sort_order", "id")
+        if page
+        else Page.objects.none()
+    )
 
     return render(
         request,
@@ -76,7 +100,12 @@ def distribution(request):
 
 def about(request):
     page = Page.objects.filter(slug="about", is_published=True).first()
-    slides = page.slides.filter(is_active=True).order_by("sort_order", "id") if page else []
+
+    slides = (
+        page.slides.filter(is_active=True).order_by("sort_order", "id")
+        if page
+        else Page.objects.none()
+    )
 
     return render(
         request,
@@ -90,23 +119,31 @@ def about(request):
 
 
 def news(request):
-    return render(request, "idrisfilms_site/news.html", {"active_page": "news"})
+    return render(
+        request,
+        "idrisfilms_site/news.html",
+        {
+            "active_page": "news",
+        },
+    )
 
 
 def contact(request):
-    return render(request, "idrisfilms_site/contact.html", {"active_page": "contact"})
+    return render(
+        request,
+        "idrisfilms_site/contact.html",
+        {
+            "active_page": "contact",
+        },
+    )
 
 
 def commissions(request):
-    """
-    /commissions/ landing page:
-    - ONE showreel (stored on the commissions Page)
-    - category cards (child pages of commissions)
-    """
     commissions_page = Page.objects.filter(slug="commissions", is_published=True).first()
 
     service_pages = (
-        Page.objects.filter(parent=commissions_page, is_published=True).order_by("sort_order", "title")
+        Page.objects.filter(parent=commissions_page, is_published=True)
+        .order_by("sort_order", "title")
         if commissions_page
         else Page.objects.none()
     )
@@ -128,11 +165,6 @@ def commissions(request):
 
 
 def commission_detail(request, slug):
-    """
-    /commissions/<slug>/ detail page:
-    - carousel slides for that category page
-    - content blocks below
-    """
     commissions_root = get_object_or_404(Page, slug="commissions", is_published=True)
 
     page = get_object_or_404(
@@ -142,8 +174,8 @@ def commission_detail(request, slug):
         is_published=True,
     )
 
-    blocks = page.blocks.filter(is_active=True)
-    slides = page.slides.filter(is_active=True)
+    blocks = page.blocks.filter(is_active=True).order_by("sort_order", "id")
+    slides = page.slides.filter(is_active=True).order_by("sort_order", "id")
 
     return render(
         request,
