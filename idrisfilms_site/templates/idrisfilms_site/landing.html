@@ -19,20 +19,17 @@
 <body class="page-landing">
   <main class="landing" aria-label="Idris Films landing page">
 
-    {% if page and page.landing_video %}
-      <video
-        class="landing__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        {% if page.landing_poster %}poster="{{ page.landing_poster.url }}"{% endif %}
-        aria-hidden="true"
-      >
-        <source src="{{ page.landing_video.url }}" type="video/mp4" />
-      </video>
-    {% endif %}
+    <video
+      class="landing__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    >
+      <source src="https://res.cloudinary.com/dqmh99cik/video/upload/v1777213936/Splash_Landing_cvfyfd.mp4" type="video/mp4" />
+    </video>
 
     <div class="landing__overlay" aria-hidden="true"></div>
 
