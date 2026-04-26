@@ -11,7 +11,7 @@ class ContentBlockInline(admin.TabularInline):
         "block_type",
         "heading",
         "body",
-        "image",       # ✅ upload
+        "image",       # upload
         "image_url",   # optional legacy
         "button_text",
         "button_url",
@@ -27,8 +27,8 @@ class CarouselSlideInline(admin.TabularInline):
         "is_active",
         "title",
         "caption",
-        "image",       # ✅ new
-        "image_alt",   # ✅ new
+        "image",
+        "image_alt",
         "embed_url",
         "embed_html",
     )
@@ -43,7 +43,18 @@ class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = (
         (None, {"fields": ("title", "slug", "parent", "is_published")}),
-        ("Cards / Listing", {"fields": ("sort_order", "summary", "card_image", "card_image_url")}),
-        ("Commissions Landing Showreel", {"fields": ("showreel_embed_url", "showreel_caption")}),
+
+        ("Cards / Listing", {
+            "fields": ("sort_order", "summary", "card_image", "card_image_url"),
+        }),
+
+        ("Commissions Landing Showreel", {
+            "fields": ("showreel_embed_url", "showreel_caption"),
+        }),
+
+        ("Splash Landing Page", {
+            "fields": ("landing_video", "landing_poster"),
+            "description": "Use this only on the Page with slug 'landing'. Upload a short looping MP4 for the splash background.",
+        }),
     )
     inlines = [ContentBlockInline, CarouselSlideInline]

@@ -7,11 +7,19 @@ __pycache__/
 .env.*
 *.log
 
+# Virtual environment
+venv/
+.venv/
+env/
+
 # Local DB
 db.sqlite3
 
 # Collected static (build output)
 staticfiles/
+
+# Large local media files
+idrisfilms_site/static/idrisfilms_site/video/
 
 # OS / editor
 .DS_Store

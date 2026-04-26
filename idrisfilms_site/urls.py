@@ -4,7 +4,8 @@ from . import views
 app_name = "idrisfilms_site"
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.landing, name="landing"),
+    path("home/", views.home, name="home"),
 
     path("commissions/", views.commissions, name="commissions"),
     path("commissions/<slug:slug>/", views.commission_detail, name="commission_detail"),

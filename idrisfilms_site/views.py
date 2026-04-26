@@ -2,6 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from .models import Page
 
 
+def landing(request):
+    page = Page.objects.filter(slug="landing", is_published=True).first()
+
+    return render(
+        request,
+        "idrisfilms_site/landing.html",
+        {
+            "active_page": "landing",
+            "page": page,
+        },
+    )
+
+
 def home(request):
     commissions_page = Page.objects.filter(slug="commissions", is_published=True).first()
     commission_tiles = (

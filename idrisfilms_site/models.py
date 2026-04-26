@@ -22,7 +22,7 @@ class Page(models.Model):
         help_text="Optional: short summary for link cards / intro copy.",
     )
 
-    # ✅ NEW: uploadable card image (Cloudinary)
+    # Uploadable card image (Cloudinary)
     card_image = CloudinaryField(
         "card_image",
         blank=True,
@@ -30,7 +30,7 @@ class Page(models.Model):
         help_text="Upload an image for the category card on /commissions/.",
     )
 
-    # keep URL field for backwards compatibility (optional)
+    # Keep URL field for backwards compatibility
     card_image_url = models.URLField(
         blank=True,
         help_text="Optional: legacy/manual image URL (not needed if you upload card_image).",
@@ -50,6 +50,22 @@ class Page(models.Model):
         max_length=200,
         blank=True,
         help_text="Optional caption under the commissions landing showreel.",
+    )
+
+    # Used ONLY for the splash landing page
+    landing_video = CloudinaryField(
+        "landing_video",
+        resource_type="video",
+        blank=True,
+        null=True,
+        help_text="Upload the looping splash landing page video. Use an MP4, ideally compressed under 25MB.",
+    )
+
+    landing_poster = CloudinaryField(
+        "landing_poster",
+        blank=True,
+        null=True,
+        help_text="Optional fallback poster image for the landing video.",
     )
 
     is_published = models.BooleanField(default=True)
@@ -86,7 +102,7 @@ class ContentBlock(models.Model):
         help_text="Text or HTML depending on block type.",
     )
 
-    # ✅ NEW: uploadable image for IMAGE blocks (Cloudinary)
+    # Uploadable image for IMAGE blocks (Cloudinary)
     image = CloudinaryField(
         "block_image",
         blank=True,
@@ -94,7 +110,7 @@ class ContentBlock(models.Model):
         help_text="Upload an image for IMAGE blocks.",
     )
 
-    # keep URL field for backwards compatibility (optional)
+    # Keep URL field for backwards compatibility
     image_url = models.URLField(
         blank=True,
         help_text="Optional legacy/manual URL (not needed if you upload image).",
@@ -193,7 +209,7 @@ class CarouselSlide(models.Model):
         ordering = ["sort_order", "id"]
 
     def save(self, *args, **kwargs):
-        # If using a video URL (and not raw HTML), normalize it to an embed URL
+        # If using a video URL and not raw HTML, normalize it to an embed URL
         if self.embed_url and not self.embed_html:
             self.embed_url = _to_embed_url(self.embed_url.strip())
         super().save(*args, **kwargs)
