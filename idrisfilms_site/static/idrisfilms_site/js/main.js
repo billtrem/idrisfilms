@@ -19,8 +19,8 @@
         const parent = el.parentElement;
         if (!parent) return;
 
-        const maxSize = 104;
-        const minSize = 18;
+        const maxSize = Number(el.dataset.fitMax || 104);
+        const minSize = Number(el.dataset.fitMin || 10);
 
         el.style.whiteSpace = "nowrap";
         el.style.fontSize = `${maxSize}px`;
@@ -158,8 +158,6 @@
 
     // ------------------------------------------------------------
     // Testimonial carousel — infinite loop
-    // Matches testimonials.html:
-    // data-testimonial-carousel / track / prev / next / slide
     // ------------------------------------------------------------
     document.querySelectorAll("[data-testimonial-carousel]").forEach((carousel) => {
       const track = carousel.querySelector("[data-testimonial-track]");

@@ -5,7 +5,7 @@
 .clientele__head{
   display: grid;
   gap: 12px;
-  text-align: left;
+  text-align: center;
 }
 
 .clientele__head h2{
@@ -38,7 +38,7 @@
   min-height: 310px;
   display: grid;
   align-content: start;
-  gap: 22px;
+  gap: 18px;
   padding: 28px 24px 24px;
   background: #ffffff;
   border: 1px solid var(--soft-line);
@@ -54,6 +54,14 @@
 .client-card:nth-child(2),
 .client-card:nth-child(3){
   background: #ffffff;
+}
+
+/* Icon and title row */
+.client-card__heading{
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
 }
 
 .client-symbol{
@@ -89,20 +97,16 @@
   color: #ffffff;
 }
 
-.client-card__body{
-  position: relative;
-  z-index: 1;
-}
-
 .client-card h3{
-  margin: 0 0 10px;
+  margin: 0;
   font-size: clamp(28px, 2.8vw, 42px);
   line-height: .9;
   letter-spacing: -.06em;
 }
 
-.client-card p{
+.client-card__text{
   margin: 0;
+  width: 100%;
   color: var(--ink);
   font-size: 17px;
   line-height: 1.25;
@@ -116,55 +120,74 @@
 
   .client-card{
     min-height: auto;
-    grid-template-columns: 90px 1fr;
-    align-items: start;
-    gap: 20px;
+    gap: 14px;
+  }
+
+  .client-card__heading{
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 14px;
   }
 
   .client-symbol{
-    width: 70px;
-    height: 70px;
+    width: 54px;
+    height: 54px;
   }
 
   .client-symbol span{
-    font-size: 36px;
+    font-size: 28px;
   }
 }
 
 @media (max-width: 640px){
   .clientele__head{
-    text-align: left;
-  }
-
-  .clientele__head h2,
-  .clientele__head p{
-    margin-left: 0;
-    margin-right: 0;
+    text-align: center;
+    justify-items: center;
   }
 
   .clientele__head h2{
-    text-align: left;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .clientele__head p{
+    padding-left: 12px;
+    padding-right: 12px;
     font-size: 20px;
     text-align: left;
     text-align-last: auto;
   }
 
   .client-card{
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 24px 20px 22px;
+    gap: 12px;
+    padding: 22px 16px;
     border-radius: 0;
   }
 
+  .client-card__heading{
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+  }
+
   .client-symbol{
-    width: 64px;
-    height: 64px;
+    width: 34px;
+    height: 34px;
+    border-width: 2px;
   }
 
   .client-symbol span{
-    font-size: 32px;
+    font-size: 18px;
+  }
+
+  .client-card h3{
+    margin: 0;
+    font-size: clamp(22px, 6.2vw, 30px);
+    line-height: .92;
+  }
+
+  .client-card__text{
+    font-size: 16px;
+    line-height: 1.25;
   }
 }

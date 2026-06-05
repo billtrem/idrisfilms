@@ -140,3 +140,10 @@
     flex-wrap: wrap;
   }
 }
+
+@media (max-width: 640px){
+  .small-mountains,
+  .signoff{
+    display: none;
+  }
+}

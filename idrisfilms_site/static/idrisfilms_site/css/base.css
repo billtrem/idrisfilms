@@ -22,6 +22,10 @@
   --max: 1280px;
 
   --font-main: "Courier New", Courier, monospace;
+
+  /* Shared heading sizes */
+  --section-heading-size: clamp(30px, 4.2vw, 52px);
+  --section-heading-size-mobile: clamp(24px, 7vw, 34px);
 }
 
 *{
@@ -42,7 +46,6 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-/* No background gradients / texture */
 body::before{
   display: none;
 }
@@ -88,13 +91,25 @@ svg{
 
 .section h2{
   margin: 0;
-  max-width: 1060px;
+  width: 100%;
+  max-width: none;
   font-family: var(--font-main);
-  font-size: clamp(34px, 5vw, 72px);
-  line-height: .9;
-  letter-spacing: -.08em;
+  font-size: var(--section-heading-size);
+  line-height: .92;
+  letter-spacing: -.075em;
   font-weight: 900;
   text-transform: none;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* JS-fitted headings */
+[data-fit-line]{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: visible;
 }
 
 /* Global typewriter feel */
@@ -204,7 +219,7 @@ button:focus-visible{
   }
 
   .section h2{
-    font-size: clamp(32px, 8vw, 62px);
+    font-size: var(--section-heading-size-mobile);
   }
 }
 
@@ -224,8 +239,9 @@ button:focus-visible{
   }
 
   .section h2{
-    font-size: clamp(32px, 11vw, 52px);
-    letter-spacing: -.075em;
+    font-size: var(--section-heading-size-mobile);
+    text-align: left;
+    white-space: nowrap;
   }
 
   .flare{
