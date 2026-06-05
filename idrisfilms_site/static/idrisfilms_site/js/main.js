@@ -157,7 +157,7 @@
     };
 
     // ------------------------------------------------------------
-    // Testimonial carousel
+    // Testimonial carousel — infinite loop
     // Matches testimonials.html:
     // data-testimonial-carousel / track / prev / next / slide
     // ------------------------------------------------------------
@@ -176,13 +176,16 @@
       let index = 0;
 
       const go = (nextIndex) => {
-        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        if (nextIndex < 0) {
+          index = slides.length - 1;
+        } else if (nextIndex >= slides.length) {
+          index = 0;
+        } else {
+          index = nextIndex;
+        }
 
         track.style.transform = `translateX(${-100 * index}%)`;
         track.style.transition = "transform 240ms ease";
-
-        prev.disabled = index <= 0;
-        next.disabled = index >= slides.length - 1;
 
         pauseInactiveSlides(slides, index);
       };

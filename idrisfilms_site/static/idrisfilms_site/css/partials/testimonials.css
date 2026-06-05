@@ -17,9 +17,7 @@
 /* Carousel */
 .testimonial-carousel{
   display: grid;
-  grid-template-columns: 48px 1fr 48px;
-  gap: 18px;
-  align-items: center;
+  gap: 14px;
 }
 
 .testimonial-window{
@@ -81,6 +79,12 @@
   letter-spacing: .08em;
 }
 
+.testimonial-controls{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .testimonial-arrow{
   width: 48px;
   height: 48px;
@@ -92,7 +96,7 @@
   color: var(--ink);
   font-size: 24px;
   cursor: pointer;
-  transition: transform 160ms ease, background 160ms ease;
+  transition: transform 160ms ease, opacity 160ms ease;
 }
 
 .testimonial-arrow:hover{
@@ -101,9 +105,8 @@
 }
 
 .testimonial-arrow:disabled{
-  opacity: .35;
-  cursor: default;
-  transform: none;
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* Client logos */
@@ -217,11 +220,6 @@
   max-height: 100px;
 }
 
-.client-logo--idris img{
-  max-width: 190px;
-  max-height: 60px;
-}
-
 .client-logo--smoovie img{
   max-width: 220px;
   max-height: 76px;
@@ -241,8 +239,8 @@
 
 @media (max-width: 980px){
   .client-logo-grid{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px 30px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px 24px;
   }
 }
 
@@ -252,9 +250,9 @@
     text-align: left;
   }
 
-  .testimonial-carousel{
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .testimonial-controls{
+    justify-content: center;
+    margin-top: 4px;
   }
 
   .testimonial-arrow{
@@ -262,23 +260,9 @@
     height: 44px;
   }
 
-  .testimonial-arrow[data-testimonial-prev]{
-    justify-self: start;
-    order: 2;
-  }
-
-  .testimonial-window{
-    order: 1;
-  }
-
-  .testimonial-arrow[data-testimonial-next]{
-    justify-self: end;
-    order: 3;
-    margin-top: -56px;
-  }
-
   .client-logo-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px 18px;
   }
 
   .quote-grid{
@@ -306,20 +290,32 @@
   }
 
   .client-logo-grid{
-    gap: 24px 22px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px 14px;
+  }
+
+  .client-logo{
+    min-height: 54px;
+  }
+
+  .client-logo img{
+    max-width: 100%;
+    max-height: 48px;
   }
 }
 
 @media (max-width: 460px){
   .client-logo-grid{
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px 12px;
   }
 
   .client-logo{
-    min-height: 82px;
+    min-height: 48px;
   }
 
   .client-logo img{
-    max-width: 230px;
+    max-width: 100%;
+    max-height: 42px;
   }
 }
