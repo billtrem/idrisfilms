@@ -1,0 +1,140 @@
+.output-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.outputs .section__head h2{
+  white-space: nowrap;
+  max-width: none;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(34px, 5.2vw, 66px);
+}
+
+.output-card{
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--soft-line);
+  background: #ffffff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 10px;
+  overflow: hidden;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.output-card:hover{
+  transform: translateY(-3px);
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+.media-tile{
+  position: relative;
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--green);
+}
+
+.media-tile--wide{
+  background: var(--blue);
+}
+
+.media-tile--phone{
+  background: var(--rust);
+}
+
+.media-tile--cinema{
+  background: #0f1117;
+}
+
+.media-tile::before{
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 2px solid #ffffff;
+  opacity: .8;
+}
+
+.media-tile--phone::before{
+  left: 35%;
+  right: 35%;
+  border-radius: 14px;
+}
+
+.play{
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 30px;
+  padding-left: 4px;
+}
+
+.output-card__body{
+  position: relative;
+  padding: 22px 18px 18px;
+  text-align: center;
+  background: #ffffff;
+}
+
+.mini-icon{
+  position: absolute;
+  top: -29px;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 0;
+  background: var(--ink);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-size: 24px;
+}
+
+.output-card h3{
+  margin: 0 0 6px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.output-card p{
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.26;
+}
+
+@media (max-width: 980px){
+  .outputs .section__head h2{
+    white-space: normal;
+    text-align: left;
+  }
+
+  .output-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .output-card__body{
+    text-align: left;
+  }
+
+  .media-tile{
+    min-height: 150px;
+  }
+}

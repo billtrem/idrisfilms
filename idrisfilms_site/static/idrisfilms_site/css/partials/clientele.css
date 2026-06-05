@@ -1,0 +1,170 @@
+.clientele{
+  padding-top: 34px;
+}
+
+.clientele__head{
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+
+.clientele__head h2{
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.clientele__head p{
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2.3vw, 30px);
+  line-height: 1.12;
+  text-align: justify;
+  text-align-last: left;
+}
+
+/* Clean white cards */
+.client-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.client-card{
+  position: relative;
+  min-height: 310px;
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  padding: 28px 24px 24px;
+  background: #ffffff;
+  border: 1px solid var(--soft-line);
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.client-card::before{
+  display: none;
+}
+
+.client-card:nth-child(2),
+.client-card:nth-child(3){
+  background: #ffffff;
+}
+
+.client-symbol{
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.client-symbol span{
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.client-card:nth-child(1) .client-symbol{
+  background: var(--rust);
+  color: #ffffff;
+}
+
+.client-card:nth-child(2) .client-symbol{
+  background: var(--green);
+  color: #ffffff;
+}
+
+.client-card:nth-child(3) .client-symbol{
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.client-card__body{
+  position: relative;
+  z-index: 1;
+}
+
+.client-card h3{
+  margin: 0 0 10px;
+  font-size: clamp(28px, 2.8vw, 42px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.client-card p{
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.25;
+  text-align: left;
+}
+
+@media (max-width: 980px){
+  .client-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .client-card{
+    min-height: auto;
+    grid-template-columns: 90px 1fr;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .client-symbol{
+    width: 70px;
+    height: 70px;
+  }
+
+  .client-symbol span{
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 640px){
+  .clientele__head{
+    text-align: left;
+  }
+
+  .clientele__head h2,
+  .clientele__head p{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .clientele__head h2{
+    text-align: left;
+  }
+
+  .clientele__head p{
+    font-size: 20px;
+    text-align: left;
+    text-align-last: auto;
+  }
+
+  .client-card{
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 20px 22px;
+    border-radius: 0;
+  }
+
+  .client-symbol{
+    width: 64px;
+    height: 64px;
+  }
+
+  .client-symbol span{
+    font-size: 32px;
+  }
+}

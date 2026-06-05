@@ -7,66 +7,46 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>{% block title %}Idris Films{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}Idris Films — commissioned video content and creative film work.{% endblock %}" />
+  <title>Idris Films | Video campaigns for website, social media and cinema</title>
+  <meta
+    name="description"
+    content="Idris Films creates video campaigns for websites, social media and cinema screens for companies, community projects and public organisations across Cymru / Wales."
+  />
+
+  <meta property="og:title" content="Idris Films" />
+  <meta property="og:description" content="Video campaigns for website, social media and cinema." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.idrisfilms.com/home/" />
+
+  <link rel="preconnect" href="https://res.cloudinary.com" />
+  <link rel="preconnect" href="https://www.youtube.com" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" />
 
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/base.css" />
-  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/styles.css" />
-  {% block page_css %}{% endblock %}
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/hero.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/clientele.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/outputs.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/process.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/testimonials.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/contact.css" />
+  <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/modal.css" />
 
   <link rel="icon" href="{{ STATIC_PREFIX }}idrisfilms_site/img/favicon.ico" />
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-  <a class="skip-link" href="#main">Skip to content</a>
+<body>
 
-  {% with request.resolver_match.url_name as current %}
-  <header class="site-header">
-    <div class="wrap header-wrap">
-      <nav class="topnav" aria-label="Primary">
-        <a class="brand" href="{% url 'idrisfilms_site:commissions' %}" aria-label="Idris Films home">
-          <span class="brand__name">IDRIS FILMS</span>
-        </a>
 
-        <ul class="nav" id="nav-desktop">
-          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' or current == 'commission_detail' %}active{% endif %}">Work</a></li>
-          <li><a href="{% url 'idrisfilms_site:info' %}" class="{% if current == 'info' %}active{% endif %}">Info</a></li>
-        </ul>
-
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="nav-panel"
-          data-nav-toggle
-        >
-          Menu
-        </button>
-      </nav>
-
-      <div id="nav-panel" class="nav-panel" hidden data-nav-panel>
-        <ul class="mobile-nav" aria-label="Mobile" data-close-on-click>
-          <li><a href="{% url 'idrisfilms_site:commissions' %}" class="{% if current == 'commissions' or current == 'commission_detail' %}active{% endif %}">Work</a></li>
-          <li><a href="{% url 'idrisfilms_site:info' %}" class="{% if current == 'info' %}active{% endif %}">Info</a></li>
-        </ul>
-      </div>
-    </div>
-  </header>
-  {% endwith %}
-
-  <main id="main" class="wrap">
-    {% block content %}{% endblock %}
+  <main class="site-shell" id="main">
+    {% include "idrisfilms_site/partials/hero.html" %}
+    {% include "idrisfilms_site/partials/clientele.html" %}
+    {% include "idrisfilms_site/partials/outputs.html" %}
+    {% include "idrisfilms_site/partials/process.html" %}
+    {% include "idrisfilms_site/partials/testimonials.html" %}
+    {% include "idrisfilms_site/partials/contact.html" %}
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <img
-        src="{{ STATIC_PREFIX }}idrisfilms_site/img/Logo.png"
-        alt="Idris Films"
-        class="mark"
-      />
-    </div>
-  </footer>
+  {% include "idrisfilms_site/partials/video_modal.html" %}
 
   <script src="{{ STATIC_PREFIX }}idrisfilms_site/js/main.js" defer></script>
 </body>

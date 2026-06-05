@@ -1,0 +1,65 @@
+.video-modal[hidden]{
+  display: none !important;
+}
+
+.video-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.video-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(20,17,13,.72);
+  cursor: pointer;
+}
+
+.video-modal__panel{
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  background: var(--paper-light);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 rgba(0,0,0,.35);
+  padding: 14px;
+}
+
+.video-modal__top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.video-modal__top h2{
+  margin: 0;
+  font-size: clamp(24px, 4vw, 42px);
+  line-height: 1;
+}
+
+.video-modal__close{
+  border: 2px solid var(--ink);
+  background: var(--gold);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.video-modal__frame{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-modal__frame iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

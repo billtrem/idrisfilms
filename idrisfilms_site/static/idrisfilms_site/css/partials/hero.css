@@ -1,0 +1,146 @@
+.hero{
+  display: grid;
+  align-content: start;
+  gap: 24px;
+  padding: 28px 0 34px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Idris Films logo */
+.hero-logo{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-logo img{
+  display: block;
+  width: min(100%, 260px);
+  height: auto;
+}
+
+/* Hero text */
+.hero__copy{
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Resized by main.js using [data-fit-line] */
+.hero__copy h1{
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: visible;
+  font-size: 96px;
+  line-height: .9;
+  letter-spacing: -.055em;
+}
+
+/* Main intro paragraph */
+.hero__copy p{
+  width: 100%;
+  max-width: none;
+  margin: 18px 0 0;
+  text-align: justify;
+  text-align-last: left;
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 27px);
+  line-height: 1.16;
+}
+
+.hand-rule{
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  background: var(--line);
+}
+
+/* Intro video */
+.intro-video{
+  display: grid;
+  grid-template-columns: minmax(280px, 620px) 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 30px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.intro-video__embed{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--soft-line);
+  border-radius: 0;
+  overflow: hidden;
+  background: #000;
+  box-shadow: none;
+}
+
+.intro-video__embed iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-video__copy{
+  max-width: 560px;
+}
+
+.intro-video__copy p{
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(24px, 3.2vw, 44px);
+  line-height: 1;
+  letter-spacing: -.045em;
+  font-weight: 700;
+}
+
+@media (max-width: 980px){
+  .hero{
+    padding-top: 22px;
+  }
+
+  .hero-logo img{
+    width: min(100%, 260px);
+  }
+
+  .hero__copy p{
+    font-size: 20px;
+    text-align: left;
+    text-align-last: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .intro-video{
+    grid-template-columns: 1fr;
+  }
+
+  .intro-video__copy{
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 640px){
+  .hero{
+    gap: 18px;
+    padding-top: 18px;
+  }
+
+  .hero-logo img{
+    width: min(100%, 220px);
+  }
+
+  .intro-video__copy p{
+    font-size: 26px;
+  }
+}

@@ -1,4 +1,4 @@
-// Idris Films — mobile nav + carousel
+// Idris Films — nav + testimonial carousel + video modal
 (() => {
   const onReady = (fn) => {
     if (document.readyState === "loading") {
@@ -9,7 +9,43 @@
   };
 
   onReady(() => {
+    document.documentElement.classList.add("js");
+
+    // ------------------------------------------------------------
+    // Fit one-line headings to their container width
+    // ------------------------------------------------------------
+    const fitLineText = () => {
+      document.querySelectorAll("[data-fit-line]").forEach((el) => {
+        const parent = el.parentElement;
+        if (!parent) return;
+
+        const maxSize = 104;
+        const minSize = 18;
+
+        el.style.whiteSpace = "nowrap";
+        el.style.fontSize = `${maxSize}px`;
+
+        const parentWidth = parent.clientWidth;
+        const textWidth = el.scrollWidth;
+
+        if (!parentWidth || !textWidth) return;
+
+        const nextSize = Math.max(
+          minSize,
+          Math.min(maxSize, maxSize * (parentWidth / textWidth))
+        );
+
+        el.style.fontSize = `${nextSize}px`;
+      });
+    };
+
+    fitLineText();
+    window.addEventListener("resize", fitLineText);
+
+    // ------------------------------------------------------------
     // Mobile nav
+    // Safe to keep even if the one-page site has no nav.
+    // ------------------------------------------------------------
     const toggle = document.querySelector("[data-nav-toggle]");
     const panel = document.querySelector("[data-nav-panel]");
 
@@ -53,7 +89,9 @@
       });
     }
 
-    // Add JS API support to YouTube embeds so pause commands work
+    // ------------------------------------------------------------
+    // Helpers for embedded videos
+    // ------------------------------------------------------------
     const enableYouTubeJsApi = (iframe) => {
       try {
         const src = iframe.getAttribute("src");
@@ -70,11 +108,37 @@
       }
     };
 
-    // Pause video / iframe media inside a single slide
+    const pauseIframe = (iframe) => {
+      const src = iframe.getAttribute("src") || "";
+
+      try {
+        if (src.includes("youtube.com/embed/")) {
+          iframe.contentWindow?.postMessage(
+            JSON.stringify({
+              event: "command",
+              func: "pauseVideo",
+              args: [],
+            }),
+            "*"
+          );
+        }
+
+        if (src.includes("player.vimeo.com/video/")) {
+          iframe.contentWindow?.postMessage(
+            JSON.stringify({
+              method: "pause",
+            }),
+            "*"
+          );
+        }
+      } catch (err) {
+        // Ignore iframe messaging errors
+      }
+    };
+
     const pauseSlideMedia = (slide) => {
       if (!slide) return;
 
-      // Pause native HTML5 videos
       slide.querySelectorAll("video").forEach((video) => {
         try {
           video.pause();
@@ -83,85 +147,142 @@
         }
       });
 
-      // Pause embedded iframe players
-      slide.querySelectorAll("iframe").forEach((iframe) => {
-        const src = iframe.getAttribute("src") || "";
-
-        try {
-          // YouTube
-          if (src.includes("youtube.com/embed/")) {
-            iframe.contentWindow?.postMessage(
-              JSON.stringify({
-                event: "command",
-                func: "pauseVideo",
-                args: [],
-              }),
-              "*"
-            );
-          }
-
-          // Vimeo
-          if (src.includes("player.vimeo.com/video/")) {
-            iframe.contentWindow?.postMessage(
-              JSON.stringify({
-                method: "pause",
-              }),
-              "*"
-            );
-          }
-        } catch (err) {
-          // Ignore messaging errors
-        }
-      });
+      slide.querySelectorAll("iframe").forEach(pauseIframe);
     };
 
-    // Pause all media in all slides except the active one
     const pauseInactiveSlides = (slides, activeIndex) => {
       slides.forEach((slide, i) => {
-        if (i !== activeIndex) {
-          pauseSlideMedia(slide);
-        }
+        if (i !== activeIndex) pauseSlideMedia(slide);
       });
     };
 
-    // Carousel
-    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-      const track = carousel.querySelector("[data-carousel-track]");
-      const prev = carousel.querySelector("[data-carousel-prev]");
-      const next = carousel.querySelector("[data-carousel-next]");
-      if (!track || !prev || !next) return;
+    // ------------------------------------------------------------
+    // Testimonial carousel
+    // Matches testimonials.html:
+    // data-testimonial-carousel / track / prev / next / slide
+    // ------------------------------------------------------------
+    document.querySelectorAll("[data-testimonial-carousel]").forEach((carousel) => {
+      const track = carousel.querySelector("[data-testimonial-track]");
+      const prev = carousel.querySelector("[data-testimonial-prev]");
+      const next = carousel.querySelector("[data-testimonial-next]");
+      const slides = Array.from(carousel.querySelectorAll("[data-testimonial-slide]"));
 
-      const slides = Array.from(track.querySelectorAll("[data-carousel-slide]"));
-      if (!slides.length) return;
+      if (!track || !prev || !next || !slides.length) return;
 
-      // Make YouTube embeds controllable
       slides.forEach((slide) => {
         slide.querySelectorAll("iframe").forEach(enableYouTubeJsApi);
       });
 
       let index = 0;
 
-      const setButtons = () => {
-        prev.disabled = index <= 0;
-        next.disabled = index >= slides.length - 1;
-      };
-
-      const go = (i) => {
-        index = Math.max(0, Math.min(slides.length - 1, i));
+      const go = (nextIndex) => {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
 
         track.style.transform = `translateX(${-100 * index}%)`;
         track.style.transition = "transform 240ms ease";
 
-        // Stop everything except the visible slide
-        pauseInactiveSlides(slides, index);
+        prev.disabled = index <= 0;
+        next.disabled = index >= slides.length - 1;
 
-        setButtons();
+        pauseInactiveSlides(slides, index);
       };
 
-      prev.addEventListener("click", () => go(index - 1));
-      next.addEventListener("click", () => go(index + 1));
+      prev.addEventListener("click", () => {
+        go(index - 1);
+      });
+
+      next.addEventListener("click", () => {
+        go(index + 1);
+      });
 
       go(0);
     });
+
+    // ------------------------------------------------------------
+    // Video modal
+    // Safe to keep even if most videos are now embedded directly.
+    // ------------------------------------------------------------
+    const modal = document.querySelector("[data-video-modal]");
+    const modalIframe = document.querySelector("[data-modal-iframe]");
+    const modalTitle = document.querySelector("[data-modal-title]");
+    const closeEls = document.querySelectorAll("[data-modal-close]");
+    const openEls = document.querySelectorAll("[data-modal-open]");
+
+    if (modal && modalIframe && modalTitle && openEls.length) {
+      let lastFocusedElement = null;
+
+      const getAutoplayUrl = (videoUrl) => {
+        try {
+          const url = new URL(videoUrl, window.location.origin);
+
+          if (url.hostname.includes("youtube.com")) {
+            url.searchParams.set("autoplay", "1");
+            url.searchParams.set("enablejsapi", "1");
+            url.searchParams.set("rel", "0");
+          }
+
+          if (url.hostname.includes("vimeo.com")) {
+            url.searchParams.set("autoplay", "1");
+          }
+
+          return url.toString();
+        } catch (err) {
+          return videoUrl.includes("?")
+            ? `${videoUrl}&autoplay=1`
+            : `${videoUrl}?autoplay=1`;
+        }
+      };
+
+      const openModal = ({ videoUrl, videoTitle }) => {
+        if (!videoUrl) return;
+
+        lastFocusedElement = document.activeElement;
+
+        modalTitle.textContent = videoTitle || "Video";
+        modalIframe.title = videoTitle || "Video";
+        modalIframe.src = getAutoplayUrl(videoUrl);
+
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
+
+        const closeButton = modal.querySelector("[data-modal-close]");
+        if (closeButton) closeButton.focus();
+      };
+
+      const closeModal = () => {
+        modal.hidden = true;
+
+        modalIframe.src = "";
+        modalIframe.title = "";
+        modalTitle.textContent = "Video";
+
+        document.body.style.overflow = "";
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+          lastFocusedElement.focus();
+        }
+      };
+
+      openEls.forEach((el) => {
+        el.addEventListener("click", () => {
+          openModal({
+            videoUrl: el.dataset.videoUrl,
+            videoTitle: el.dataset.videoTitle,
+          });
+        });
+      });
+
+      closeEls.forEach((el) => {
+        el.addEventListener("click", closeModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (modal.hidden) return;
+
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      });
+    }
   });
 })();
