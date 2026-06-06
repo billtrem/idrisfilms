@@ -1,51 +1,61 @@
-<section class="section clientele" id="clientele" aria-label="Who are campaigns for?">
-  <header class="section__head section__head--center clientele__head">
-    <h2>Who are campaigns for?</h2>
+<section class="section clientele mobile-accordion" id="clientele" aria-label="Who are campaigns for?" data-mobile-accordion>
+  <header class="section__head section__head--center clientele__head mobile-accordion__head">
+    <h2>Who are film campaigns for?</h2>
 
-
+    <button
+      class="mobile-accordion__toggle"
+      type="button"
+      aria-label="Open Who are campaigns for"
+      aria-expanded="false"
+      aria-controls="clientele-panel"
+      data-mobile-accordion-toggle>
+      <span aria-hidden="true">&gt;</span>
+    </button>
   </header>
 
-  <div class="client-grid client-grid--audiences">
-    <article class="client-card">
-      <div class="client-card__heading">
-        <div class="client-symbol" aria-hidden="true">
-          <span>£</span>
+  <div class="mobile-accordion__panel" id="clientele-panel" data-mobile-accordion-panel>
+    <div class="client-grid client-grid--audiences">
+      <article class="client-card">
+        <div class="client-card__heading">
+          <div class="client-symbol" aria-hidden="true">
+            <span>£</span>
+          </div>
+
+          <h3>Companies and brands</h3>
         </div>
 
-        <h3>Companies and brands</h3>
-      </div>
+        <p class="client-card__text">
+          Films that build your brand, promote what you offer and help turn interest into bookings, sales or enquiries.
+        </p>
+      </article>
 
-      <p class="client-card__text">
-        Films that build your brand, promote what you offer and help turn interest into bookings, sales or enquiries.
-      </p>
-    </article>
+      <article class="client-card">
+        <div class="client-card__heading">
+          <div class="client-symbol" aria-hidden="true">
+            <span>✹</span>
+          </div>
 
-    <article class="client-card">
-      <div class="client-card__heading">
-        <div class="client-symbol" aria-hidden="true">
-          <span>✹</span>
+          <h3>Community projects</h3>
         </div>
 
-        <h3>Community projects</h3>
-      </div>
+        <p class="client-card__text">
+          Films that build momentum, celebrate people, gather support and help your project feel real, active and worth joining.
+        </p>
+      </article>
 
-      <p class="client-card__text">
-        Films that build momentum, celebrate people, gather support and help your project feel real, active and worth joining.
-      </p>
-    </article>
+      <article class="client-card">
+        <div class="client-card__heading">
+          <div class="client-symbol" aria-hidden="true">
+            <span>i</span>
+          </div>
 
-    <article class="client-card">
-      <div class="client-card__heading">
-        <div class="client-symbol" aria-hidden="true">
-          <span>i</span>
+          <h3>Public organisations</h3>
         </div>
 
-        <h3>Public organisations</h3>
-      </div>
-
-      <p class="client-card__text">
-        Films that engage, inform and explain important messages clearly across websites, social media and public campaigns.
-      </p>
-    </article>
+        <p class="client-card__text">
+          Films that engage, inform and explain important messages clearly across websites, social media and public campaigns.
+        </p>
+      </article>
+    </div>
   </div>
 </section>

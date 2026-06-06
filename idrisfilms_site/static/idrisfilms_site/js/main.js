@@ -1,4 +1,4 @@
-// Idris Films — nav + testimonial carousel + video modal
+// Idris Films — nav + mobile accordions + testimonial carousel + video modal
 (() => {
   const onReady = (fn) => {
     if (document.readyState === "loading") {
@@ -88,6 +88,42 @@
         if (window.innerWidth > 980 && isOpen()) close();
       });
     }
+
+    // ------------------------------------------------------------
+    // Mobile accordions
+    // Phone only in CSS. Desktop keeps all content visible.
+    // Each accordion toggles independently so the page does not jump.
+    // ------------------------------------------------------------
+    const mobileAccordions = Array.from(document.querySelectorAll("[data-mobile-accordion]"));
+
+    const closeAccordion = (accordion) => {
+      const button = accordion.querySelector("[data-mobile-accordion-toggle]");
+      accordion.classList.remove("is-open");
+      if (button) button.setAttribute("aria-expanded", "false");
+    };
+
+    const openAccordion = (accordion) => {
+      const button = accordion.querySelector("[data-mobile-accordion-toggle]");
+      accordion.classList.add("is-open");
+      if (button) button.setAttribute("aria-expanded", "true");
+    };
+
+    mobileAccordions.forEach((accordion) => {
+      const button = accordion.querySelector("[data-mobile-accordion-toggle]");
+      if (!button) return;
+
+      closeAccordion(accordion);
+
+      button.addEventListener("click", () => {
+        const isOpen = accordion.classList.contains("is-open");
+
+        if (isOpen) {
+          closeAccordion(accordion);
+        } else {
+          openAccordion(accordion);
+        }
+      });
+    });
 
     // ------------------------------------------------------------
     // Helpers for embedded videos

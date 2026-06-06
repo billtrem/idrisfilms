@@ -1,65 +1,85 @@
-<section class="section outputs" id="outputs" aria-label="One shoot. Multiple outputs.">
-  <header class="section__head section__head--center">
+<section class="section outputs mobile-accordion" id="outputs" aria-label="One shoot. Multiple outputs." data-mobile-accordion>
+  <header class="section__head section__head--center mobile-accordion__head">
     <h2>One shoot. Multiple outputs.</h2>
+
+    <button
+      class="mobile-accordion__toggle"
+      type="button"
+      aria-label="Open One shoot. Multiple outputs."
+      aria-expanded="false"
+      aria-controls="outputs-panel"
+      data-mobile-accordion-toggle>
+      <span aria-hidden="true">&gt;</span>
+    </button>
   </header>
 
-  <div class="output-grid">
-    <button
-      class="output-card"
-      type="button"
-      data-modal-open
-      data-video-title="Website films"
-      data-video-url="https://www.youtube.com/embed/OZNnIKc1VR8"
-    >
-      <div class="media-tile media-tile--wide">
-        <span class="play">▶</span>
-      </div>
-      <div class="output-card__body">
-        <div class="mini-icon" aria-hidden="true">▣</div>
-        <h3>Website films</h3>
-        <p>
-          A polished film for your homepage, launch, event or brand story communicating clearly what people visiting your website need to know.
-        </p>
-      </div>
-    </button>
+  <div class="mobile-accordion__panel" id="outputs-panel" data-mobile-accordion-panel>
+    <div class="output-grid">
+      <button
+        class="output-card"
+        type="button"
+        data-modal-open
+        data-video-title="Website films"
+        data-video-url="https://www.youtube.com/embed/OZNnIKc1VR8"
+      >
+        <div class="media-tile media-tile--wide">
+          <span class="play">▶</span>
+        </div>
 
-    <button
-      class="output-card"
-      type="button"
-      data-modal-open
-      data-video-title="Social media content"
-      data-video-url="https://www.youtube.com/embed/pNNfuHeDCdQ"
-    >
-      <div class="media-tile media-tile--phone">
-        <span class="play">▶</span>
-      </div>
-      <div class="output-card__body">
-        <div class="mini-icon" aria-hidden="true">▯</div>
-        <h3>Social media content</h3>
-        <p>
-          Short, vertical-first clips and reels for Instagram, TikTok and paid campaigns that drive interest.
-        </p>
-      </div>
-    </button>
+        <div class="output-card__body">
+          <div class="mini-icon" aria-hidden="true">▣</div>
 
-    <button
-      class="output-card"
-      type="button"
-      data-modal-open
-      data-video-title="Cinema adverts"
-      data-video-url="https://www.youtube.com/embed/g4LV-LVr6zs"
-    >
-      <div class="media-tile media-tile--cinema">
-        <span class="play">▶</span>
-      </div>
-      <div class="output-card__body">
-        <div class="mini-icon" aria-hidden="true">▤</div>
-        <h3>Cinema adverts</h3>
-        <p>
-          10, 15 and 30 second adverts designed for the big screen. We collaborate with local cinemas to get your advert seen by captivated audiences.
-        </p>
-      </div>
-    </button>
+          <h3>Website films</h3>
+
+          <p>
+            A polished film for your homepage, launch, event or brand story communicating clearly what people visiting your website need to know.
+          </p>
+        </div>
+      </button>
+
+      <button
+        class="output-card"
+        type="button"
+        data-modal-open
+        data-video-title="Social media content"
+        data-video-url="https://www.youtube.com/embed/pNNfuHeDCdQ"
+      >
+        <div class="media-tile media-tile--phone">
+          <span class="play">▶</span>
+        </div>
+
+        <div class="output-card__body">
+          <div class="mini-icon" aria-hidden="true">▯</div>
+
+          <h3>Social media content</h3>
+
+          <p>
+            Short, vertical-first clips and reels for Instagram, TikTok and paid campaigns that drive interest.
+          </p>
+        </div>
+      </button>
+
+      <button
+        class="output-card"
+        type="button"
+        data-modal-open
+        data-video-title="Cinema adverts"
+        data-video-url="https://www.youtube.com/embed/g4LV-LVr6zs"
+      >
+        <div class="media-tile media-tile--cinema">
+          <span class="play">▶</span>
+        </div>
+
+        <div class="output-card__body">
+          <div class="mini-icon" aria-hidden="true">▤</div>
+
+          <h3>Cinema adverts</h3>
+
+          <p>
+            15 second adverts designed for the big screen. We collaborate with local cinemas to get your advert seen by captivated audiences.
+          </p>
+        </div>
+      </button>
+    </div>
   </div>
-
 </section>
