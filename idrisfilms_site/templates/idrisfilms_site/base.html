@@ -6,6 +6,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <title>Idris Films | Video campaigns for website, social media and cinema</title>
   <meta
@@ -20,7 +21,6 @@
 
   <link rel="preconnect" href="https://res.cloudinary.com" />
   <link rel="preconnect" href="https://www.youtube.com" />
-  <link rel="preconnect" href="https://www.youtube-nocookie.com" />
 
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/base.css" />
   <link rel="stylesheet" href="{{ STATIC_PREFIX }}idrisfilms_site/css/partials/hero.css" />
@@ -35,8 +35,6 @@
 </head>
 
 <body>
-
-
   <main class="site-shell" id="main">
     {% include "idrisfilms_site/partials/hero.html" %}
     {% include "idrisfilms_site/partials/clientele.html" %}
