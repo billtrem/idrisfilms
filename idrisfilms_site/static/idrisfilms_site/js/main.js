@@ -131,7 +131,7 @@
     const enableYouTubeJsApi = (iframe) => {
       try {
         const src = iframe.getAttribute("src");
-        if (!src || !src.includes("youtube.com/embed/")) return;
+        if (!src || (!src.includes("youtube.com/embed/") && !src.includes("youtube-nocookie.com/embed/"))) return;
 
         const url = new URL(src, window.location.origin);
 
@@ -148,7 +148,7 @@
       const src = iframe.getAttribute("src") || "";
 
       try {
-        if (src.includes("youtube.com/embed/")) {
+        if (src.includes("youtube.com/embed/") || src.includes("youtube-nocookie.com/embed/")) {
           iframe.contentWindow?.postMessage(
             JSON.stringify({
               event: "command",
@@ -237,7 +237,6 @@
 
     // ------------------------------------------------------------
     // Video modal
-    // Safe to keep even if most videos are now embedded directly.
     // ------------------------------------------------------------
     const modal = document.querySelector("[data-video-modal]");
     const modalIframe = document.querySelector("[data-modal-iframe]");
@@ -252,10 +251,12 @@
         try {
           const url = new URL(videoUrl, window.location.origin);
 
-          if (url.hostname.includes("youtube.com")) {
+          if (url.hostname.includes("youtube.com") || url.hostname.includes("youtube-nocookie.com")) {
             url.searchParams.set("autoplay", "1");
-            url.searchParams.set("enablejsapi", "1");
             url.searchParams.set("rel", "0");
+            url.searchParams.set("modestbranding", "1");
+            url.searchParams.set("playsinline", "1");
+            url.searchParams.set("enablejsapi", "1");
           }
 
           if (url.hostname.includes("vimeo.com")) {
@@ -265,8 +266,8 @@
           return url.toString();
         } catch (err) {
           return videoUrl.includes("?")
-            ? `${videoUrl}&autoplay=1`
-            : `${videoUrl}?autoplay=1`;
+            ? `${videoUrl}&autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`
+            : `${videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
         }
       };
 
