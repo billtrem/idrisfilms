@@ -206,8 +206,8 @@
 
     // ------------------------------------------------------------
     // Video modal
-    // Uses plain YouTube embed URLs, no autoplay and no JS API.
-    // This keeps the modal close to the working hero iframe setup.
+    // Uses normal YouTube embed URLs.
+    // Opens modal first, then sets iframe src on the next frame.
     // ------------------------------------------------------------
     const modal = document.querySelector("[data-video-modal]");
     const modalIframe = document.querySelector("[data-modal-iframe]");
@@ -244,10 +244,14 @@
 
         modalTitle.textContent = videoTitle || "Video";
         modalIframe.title = videoTitle || "Video";
-        modalIframe.src = getVideoUrl(videoUrl);
+        modalIframe.src = "";
 
         modal.hidden = false;
-        document.body.style.overflow = "";
+        document.body.style.overflow = "hidden";
+
+        window.requestAnimationFrame(() => {
+          modalIframe.src = getVideoUrl(videoUrl);
+        });
 
         const closeButton = modal.querySelector("[data-modal-close]");
         if (closeButton) closeButton.focus();
