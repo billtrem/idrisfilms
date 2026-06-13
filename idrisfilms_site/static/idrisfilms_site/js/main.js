@@ -128,37 +128,10 @@
     // ------------------------------------------------------------
     // Helpers for embedded videos
     // ------------------------------------------------------------
-    const enableYouTubeJsApi = (iframe) => {
-      try {
-        const src = iframe.getAttribute("src");
-        if (!src || (!src.includes("youtube.com/embed/") && !src.includes("youtube-nocookie.com/embed/"))) return;
-
-        const url = new URL(src, window.location.origin);
-
-        if (url.searchParams.get("enablejsapi") !== "1") {
-          url.searchParams.set("enablejsapi", "1");
-          iframe.src = url.toString();
-        }
-      } catch (err) {
-        // Ignore invalid iframe URLs
-      }
-    };
-
     const pauseIframe = (iframe) => {
       const src = iframe.getAttribute("src") || "";
 
       try {
-        if (src.includes("youtube.com/embed/") || src.includes("youtube-nocookie.com/embed/")) {
-          iframe.contentWindow?.postMessage(
-            JSON.stringify({
-              event: "command",
-              func: "pauseVideo",
-              args: [],
-            }),
-            "*"
-          );
-        }
-
         if (src.includes("player.vimeo.com/video/")) {
           iframe.contentWindow?.postMessage(
             JSON.stringify({
@@ -203,10 +176,6 @@
 
       if (!track || !prev || !next || !slides.length) return;
 
-      slides.forEach((slide) => {
-        slide.querySelectorAll("iframe").forEach(enableYouTubeJsApi);
-      });
-
       let index = 0;
 
       const go = (nextIndex) => {
@@ -237,6 +206,8 @@
 
     // ------------------------------------------------------------
     // Video modal
+    // Uses plain YouTube embed URLs, no autoplay and no JS API.
+    // This keeps the modal close to the working hero iframe setup.
     // ------------------------------------------------------------
     const modal = document.querySelector("[data-video-modal]");
     const modalIframe = document.querySelector("[data-modal-iframe]");
@@ -247,27 +218,22 @@
     if (modal && modalIframe && modalTitle && openEls.length) {
       let lastFocusedElement = null;
 
-      const getAutoplayUrl = (videoUrl) => {
+      const getVideoUrl = (videoUrl) => {
         try {
           const url = new URL(videoUrl, window.location.origin);
 
-          if (url.hostname.includes("youtube.com") || url.hostname.includes("youtube-nocookie.com")) {
-            url.searchParams.set("autoplay", "1");
+          if (url.hostname.includes("youtube.com")) {
             url.searchParams.set("rel", "0");
-            url.searchParams.set("modestbranding", "1");
             url.searchParams.set("playsinline", "1");
-            url.searchParams.set("enablejsapi", "1");
           }
 
           if (url.hostname.includes("vimeo.com")) {
-            url.searchParams.set("autoplay", "1");
+            url.searchParams.set("playsinline", "1");
           }
 
           return url.toString();
         } catch (err) {
-          return videoUrl.includes("?")
-            ? `${videoUrl}&autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`
-            : `${videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+          return videoUrl;
         }
       };
 
@@ -278,10 +244,10 @@
 
         modalTitle.textContent = videoTitle || "Video";
         modalIframe.title = videoTitle || "Video";
-        modalIframe.src = getAutoplayUrl(videoUrl);
+        modalIframe.src = getVideoUrl(videoUrl);
 
         modal.hidden = false;
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "";
 
         const closeButton = modal.querySelector("[data-modal-close]");
         if (closeButton) closeButton.focus();
